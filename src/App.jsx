@@ -2,18 +2,20 @@
 import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './input.css';
-import Login from './components/Login.jsx'
-import HomePage from './components/HomePage.jsx'
+import Login from './pages/Login.jsx'
+import HomePage from './pages/HomePage.jsx'
+import ContactElemnt from './components/ContactElement.jsx';
 
 function App() {
   return (
     <BrowserRouter>
     <Routes>
+    <Route path="/" element={<HomePage />} />
+
       <Route path="/login" element={<Login />} />
-      <Route path="/" element={<HomePage />} />
+      <Route path="/contact" element={<ContactElemnt />} />
     </Routes>
   </BrowserRouter>
-
   );
 }
 
