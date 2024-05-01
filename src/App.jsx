@@ -19,4 +19,24 @@ function App() {
   );
 }
 
-export default App;
+export default class App extends Component{
+  constructor(){
+    super();
+    this.setState({
+      recipe: []
+  });
+  this.recipeService = new RecipeService();
+  }
+
+  componentDidMount(){
+    this.RecipeService.getAll().then(data => {
+      console.log(data);
+    })
+  }
+
+  render(){
+    return (
+      <h1> Hola Mundo</h1>
+    )
+  }
+}
