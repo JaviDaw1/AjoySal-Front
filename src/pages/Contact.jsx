@@ -7,10 +7,15 @@ function Contact() {
 
   return (
   <div>
-    <Header />
-    <ContactElement />
+    <div>
+      <Header />
+    </div>
+    <div>
+      <ContactElement />
+    </div>
   </div>
 
+  
   )
 }
 
