@@ -1,3 +1,4 @@
+
 export default function Login() {
   return (
     <>
@@ -10,6 +11,7 @@ export default function Login() {
           ```
         */}
       <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
+
         <div className="sm:mx-auto sm:w-full sm:max-w-md">
           <img
             className="mx-auto h-10 w-auto"
