@@ -6,6 +6,7 @@ import Login from './pages/Login.jsx'
 import HomePage from './pages/HomePage.jsx'
 import Contact from './pages/Contact.jsx';
 import AboutUs from './pages/AboutUs.jsx';
+import Recipes from './pages/Recipes.jsx';
 
 function App() {
   return (

@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
 import Header from '../components/Header';
-import { RecipeService } from '../service/RecipeService.js';
+import { RecipeService } from '../services/RecipeService.js';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
