@@ -2,7 +2,6 @@
 import { Fragment, useState } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/24/outline'
-import Header from '../components/Header'
 import ContactElement from '../components/ContactElement'
 
 export default function Contact() {
@@ -10,7 +9,6 @@ export default function Contact() {
 
   return (
     <div>
-    <Header></Header>
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={setOpen}>
         <Transition.Child
