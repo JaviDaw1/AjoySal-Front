@@ -25,6 +25,29 @@ export default class HomePage extends Component {
         this.loadRecipes();
     }
 
+    renderOpinions(opinions) {
+      if (!opinions || opinions.length === 0) {
+          return <p>No opinions available for this recipe.</p>;
+      }
+      return opinions.map(opinion => (
+          <div key={opinion.id}>
+              <p>Title: {opinion.title}</p>
+              <p>Content: {opinion.content}</p>
+          </div>
+      ));
+  }
+
+  renderAsessments(asessments) {
+      if (!asessments || asessments.length === 0) {
+          return <p>No asessments available for this recipe.</p>;
+      }
+      return asessments.map(asessment => (
+          <div key={asessment.id}>
+              <p>Calification: {asessment.calification}</p>
+          </div>
+      ));
+  }
+
     loadRecipes = async () => {
         try {
             const data = await this.recipeService.findAll();
@@ -94,6 +117,8 @@ export default class HomePage extends Component {
                                     <Column field="favorites" header="Favorites"></Column>
                                     <Column field="date" header="Date"></Column>
                                     <Column field="description" header="Description"></Column>
+                                    <Column header="Opinions" body={(rowData) => this.renderOpinions(rowData.opinions)}></Column>
+                                    <Column header="Assessments" body={(rowData) => this.renderAsessments(rowData.asessments)}></Column>
                                     <Column header="Eliminar" body={(rowData) => (
                                         <Button 
                                             icon="pi pi-trash" 
