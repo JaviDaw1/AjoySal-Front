@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Header from '../components/Header';
+import Header from '../components/Header.jsx';
 import { RecipeService } from '../services/RecipeService.js';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
@@ -118,6 +118,7 @@ export default class Recipes extends Component {
                                     <Column field="favorites" header="Favorites"></Column>
                                     <Column field="date" header="Date"></Column>
                                     <Column field="description" header="Description"></Column>
+                                    <Column field="image" header="Image"></Column>
                                     <Column header="Opinions" body={(rowData) => this.renderOpinions(rowData.opinions)}></Column>
                                     <Column header="Assessments" body={(rowData) => this.renderAsessments(rowData.asessments)}></Column>
                                     <Column header="Eliminar" body={(rowData) => (
