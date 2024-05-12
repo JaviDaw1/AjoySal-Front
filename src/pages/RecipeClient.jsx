@@ -1,4 +1,4 @@
-// RecipeClient.jsx
+// eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
 import Header from '../components/Header.jsx';
 import Footer from '../components/Footer.jsx';
@@ -43,7 +43,13 @@ export default class RecipeClient extends Component {
                                     <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
                                     <p className="mb-2"><strong>Ingredients:</strong> {recipe.ingredients}</p>
                                     <p><strong>Description:</strong> {recipe.description}</p>
-                                    <Link to={`/recipeclient/${recipe.id}`} className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Recipe</Link>
+                                    <Link
+                                        to={`/recipeclient/${recipe.id}`}
+                                        onClick={() => console.log('ID de receta:', recipe.id)}
+                                        className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                                    >
+                                        View Recipe
+                                    </Link>
                                 </div>
                             </div>
                         </div>
@@ -52,5 +58,6 @@ export default class RecipeClient extends Component {
                 <Footer />
             </div>
         );
+
     }
 }
