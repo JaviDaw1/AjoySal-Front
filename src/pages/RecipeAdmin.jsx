@@ -49,6 +49,19 @@ export default class Recipes extends Component {
       ));
   }
 
+  renderIngredients(ingredients) {
+    if (!ingredients || ingredients.length === 0) {
+        return <p>No ingredients available for this recipe.</p>;
+    }
+    return ingredients.map(ingredient => (
+        <div key={ingredient.id}>
+            <p>Name: {ingredient.name}</p>
+            <p>Calories: {ingredient.calories}</p>
+        </div>
+    ));
+}
+
+
     loadRecipes = async () => {
         try {
             const data = await this.recipeService.findAll();
@@ -90,7 +103,6 @@ export default class Recipes extends Component {
                         <DataTable value={recipes}>
                             <Column field="id" header="ID"></Column>
                             <Column field="name" header="Name"></Column>
-                            <Column field="ingredients" header="Ingredients"></Column>
                             <Column header="Ver Detalles" body={(rowData) => (
                                 <Button 
                                     icon="pi pi-info-circle" 
@@ -111,7 +123,6 @@ export default class Recipes extends Component {
                                 <DataTable value={[selectedRecipe]}>
                                     <Column field="id" header="ID"></Column>
                                     <Column field="name" header="Name"></Column>
-                                    <Column field="ingredients" header="Ingredients"></Column>
                                     <Column field="instructions" header="Instructions"></Column>
                                     <Column field="nationality" header="Nationality"></Column>
                                     <Column field="difficulty" header="Difficulty"></Column>
@@ -121,6 +132,7 @@ export default class Recipes extends Component {
                                     <Column field="image" header="Image"></Column>
                                     <Column header="Opinions" body={(rowData) => this.renderOpinions(rowData.opinions)}></Column>
                                     <Column header="Assessments" body={(rowData) => this.renderAsessments(rowData.asessments)}></Column>
+                                    <Column header="Ingredients" body={(rowData) => this.renderIngredients(rowData.ingredients)}></Column>
                                     <Column header="Eliminar" body={(rowData) => (
                                         <Button 
                                             icon="pi pi-trash" 

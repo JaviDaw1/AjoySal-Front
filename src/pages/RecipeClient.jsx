@@ -41,7 +41,6 @@ export default class RecipeClient extends Component {
                                 </div>
                                 <div className="w-full sm:w-1/2 p-4">
                                     <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
-                                    <p className="mb-2"><strong>Ingredients:</strong> {recipe.ingredients}</p>
                                     <p><strong>Description:</strong> {recipe.description}</p>
                                     <Link to={`/recipeclient/${recipe.id}`} className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">View Recipe</Link>
                                 </div>
