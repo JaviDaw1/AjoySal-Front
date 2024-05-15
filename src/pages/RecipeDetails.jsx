@@ -1,25 +1,33 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom'; // Importa useParams
 
-const RecipeDetails = ({ recipeId }) => {
+const RecipeDetails = () => {
+  const { id } = useParams(); // Obtiene el ID de la receta de la URL
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
+    console.log('Fetching recipe with ID:', id);
+
     const fetchRecipe = async () => {
-      if (!recipeId) {
-        // No hay ID de receta, salir
+      if (!id) {
+        console.log('No recipe ID provided');
         setLoading(false);
         return;
       }
 
       try {
-        const response = await axios.get(`http://localhost:8080/api/recipe/${recipeId}`);
+        console.log('Fetching recipe details...');
+        const response = await axios.get(`http://localhost:8080/api/recipe/${id}`);
+        console.log('Recipe details received:', response.data);
         setRecipe(response.data);
       } catch (error) {
+        console.error('Error fetching recipe details:', error);
+
         if (error.response) {
-          // La solicitud se realizó y el servidor respondió con un código de estado
           if (error.response.status === 404) {
             setError('Recipe not found');
           } else if (error.response.status === 403) {
@@ -28,10 +36,8 @@ const RecipeDetails = ({ recipeId }) => {
             setError('An error occurred while fetching the recipe');
           }
         } else if (error.request) {
-          // La solicitud se realizó pero no se recibió respuesta
           setError('No response received from the server');
         } else {
-          // Algo más sucedió al realizar la solicitud que desencadenó un error
           setError('An unexpected error occurred');
         }
       } finally {
@@ -45,7 +51,7 @@ const RecipeDetails = ({ recipeId }) => {
     return () => {
       // Cancelar la solicitud si el componente se desmonta
     };
-  }, [recipeId]);
+  }, [id]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -61,7 +67,7 @@ const RecipeDetails = ({ recipeId }) => {
 
   return (
     <div>
-      <h2>{recipe.title}</h2>
+      <h2>{recipe.name}</h2>
       <p>{recipe.description}</p>
       {/* Mostrar otros detalles de la receta */}
     </div>

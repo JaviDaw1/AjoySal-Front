@@ -1,4 +1,5 @@
 import 'flowbite'; // Asegúrate de que esta importación sea correcta y de que el archivo flowbite.min.js esté en el lugar correcto
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import {
   Footer,
