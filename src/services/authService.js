@@ -1,14 +1,32 @@
-export default class authService {
-    constructor(){
-        this.url = "https://localhost:8080/api/auth"
+export default class AuthService {
+    constructor() {
+      this.url = "http://localhost:8080/api/auth";
     }
-
-    async login(user, passoword){
-        const loginRequest = {
-            user: user,
-            passoword: passoword
-        }
-        const response = await fetch(this.url + "/login", loginRequest)
-        return response.json()
+  
+    async login(email, password) {
+      const loginRequest = {
+        email: email,
+        password: password
+      };
+      const response = await fetch(this.url + "/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(loginRequest)
+      });
+      return response.json();
     }
-}
+  
+    async signup(signupData) {
+      const response = await fetch(this.url + "/signup", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(signupData)
+      });
+      return response.json();
+    }
+  }
+  
