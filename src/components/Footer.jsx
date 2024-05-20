@@ -32,7 +32,7 @@ export default function FooterComponent() {
               <div>
                 <FooterTitle title="Sobre nosotros" />
                 <FooterLinkGroup col>
-                  <FooterLink href="/recipeclient">Recetas</FooterLink>
+                  <FooterLink href="/recipeadmin">Recetas</FooterLink>
                   <FooterLink href="/aboutus">Conócenos</FooterLink>
                   <FooterLink href="/contact">Contacto</FooterLink>
                 </FooterLinkGroup>

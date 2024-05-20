@@ -1,4 +1,3 @@
-// AsessmentsService.js
 import axios from 'axios';
 
 class AsessmentsService {
@@ -15,6 +14,16 @@ class AsessmentsService {
             return [];
         }
     }
+
+    async postAsessment(asessment) {
+        try {
+            const response = await axios.post(this.baseUrl, asessment);
+            return response.data;
+        } catch (error) {
+            console.error('Error posting asessment:', error);
+            throw error;
+        }
+    }
 }
 
-export default AsessmentsService;
+export default new AsessmentsService();

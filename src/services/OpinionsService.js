@@ -1,4 +1,3 @@
-// OpinionsService.js
 import axios from 'axios';
 
 class OpinionsService {
@@ -13,6 +12,16 @@ class OpinionsService {
         } catch (error) {
             console.error(`Error fetching opinions for recipe ${recipeId}:`, error);
             return [];
+        }
+    }
+
+    async postOpinion(opinion) {
+        try {
+            const response = await axios.post(this.baseUrl, opinion);
+            return response.data;
+        } catch (error) {
+            console.error('Error posting opinion:', error);
+            throw error;
         }
     }
 }
