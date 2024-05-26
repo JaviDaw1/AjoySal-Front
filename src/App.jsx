@@ -1,25 +1,30 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './input.css';
-import Login from './pages/Login.jsx'
-import HomePage from './pages/HomePage.jsx'
-import Contact from './pages/Contact.jsx';
-import AboutUs from './pages/AboutUs.jsx';
-import Recipes from './pages/Recipes.jsx';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import HomePage from './pages/HomePage';
+import Contact from './pages/Contact';
+import AboutUs from './pages/AboutUs';
+import RecipeAdmin from './pages/RecipeAdmin';
+import RecipeClient from './pages/RecipeClient';
+import RecipeDetail from './pages/RecipeDetail';
 
 function App() {
   return (
-    <BrowserRouter>
+    <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/recipes" element={<Recipes/>}/>
-        <Route path="/postrecipe" />
-        <Route path="/aboutas" element={<AboutUs />}/>
+        <Route path="/recipeadmin" element={<RecipeAdmin />} />
+        <Route path="/recipeclient" element={<RecipeClient />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/recipe/:id" element={<RecipeDetail />} />
       </Routes>
-    </BrowserRouter>
+    </Router>
   );
 }
 

@@ -1,5 +1,8 @@
 // RecipeService.js
 import axios from 'axios';
+import AuthService from './AuthService';
+
+const authService = new AuthService();
 
 export class RecipeService {
     baseUrl = "http://localhost:8080/api/";
@@ -9,6 +12,10 @@ export class RecipeService {
     }
 
     findById(id) {
-        return axios.get(this.baseUrl + `recipe/${id}`).then(res => res.data);
+        const token = authService.getToken();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        return axios.get(this.baseUrl + `recipe/${id}`, { headers }).then(res => res.data);
     }
 }

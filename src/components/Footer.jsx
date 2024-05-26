@@ -1,18 +1,20 @@
-import 'flowbite';
+import 'flowbite'; // Asegúrate de que esta importación sea correcta y de que el archivo flowbite.min.js esté en el lugar correcto
+// eslint-disable-next-line no-unused-vars
+import React from 'react';
 import {
-    Footer,
-    FooterBrand,
-    FooterCopyright,
-    FooterDivider,
-    FooterIcon,
-    FooterLink,
-    FooterLinkGroup,
-    FooterTitle,
-  } from "flowbite-react";
-  import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from "react-icons/bs";
-  import logoImage from '../images/logo.jpg';
-  
-  export default function Component() {
+  Footer,
+  FooterBrand,
+  FooterCopyright,
+  FooterDivider,
+  FooterIcon,
+  FooterLink,
+  FooterLinkGroup,
+  FooterTitle,
+} from 'flowbite-react';
+import { BsDribbble, BsFacebook, BsGithub, BsInstagram, BsTwitter } from 'react-icons/bs';
+import logoImage from '../images/logo.jpg';
+
+export default function FooterComponent() {
     return (
       <Footer>
         <div className="w-full">
@@ -30,7 +32,7 @@ import {
               <div>
                 <FooterTitle title="Sobre nosotros" />
                 <FooterLinkGroup col>
-                  <FooterLink href="/recipes">Recetas</FooterLink>
+                  <FooterLink href="/recipeadmin">Recetas</FooterLink>
                   <FooterLink href="/aboutus">Conócenos</FooterLink>
                   <FooterLink href="/contact">Contacto</FooterLink>
                 </FooterLinkGroup>
