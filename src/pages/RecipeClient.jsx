@@ -43,7 +43,7 @@ export default class RecipeClient extends Component {
                                     <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
                                     <p><strong>Description:</strong> {recipe.description}</p>
                                     <Link
-                                        to={`/recipeclient/${recipe.id}`}
+                                        to={`/recipe/${recipe.id}`}
                                         onClick={() => console.log('ID de receta:', recipe.id)}
                                         className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                                     >
@@ -57,6 +57,5 @@ export default class RecipeClient extends Component {
                 <Footer />
             </div>
         );
-
     }
 }

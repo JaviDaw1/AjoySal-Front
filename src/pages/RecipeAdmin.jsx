@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
 import Header from '../components/Header.jsx';
 import { RecipeService } from '../services/RecipeService.js';
