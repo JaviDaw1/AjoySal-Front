@@ -12,9 +12,34 @@ export default function Signup() {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  const validate = () => {
+    const newErrors = {};
+    if (!firstName) newErrors.firstName = 'Nombre necesario';
+    if (!lastName) newErrors.lastName = 'Apellidos necesarios';
+    if (!username) newErrors.username = 'Nombre de usuario necesario';
+    if (!email) {
+      newErrors.email = 'Correo electrónico necesario';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Formato inválido';
+    }
+    if (!password) {
+      newErrors.password = 'Contraseña necesaria';
+    } else if (password.length < 6) {
+      newErrors.password = 'La contraseña necesita al menos 6 caracteres';
+    }
+    return newErrors;
+  };
+
   const handleSignup = async () => {
+    const newErrors = validate();
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     const signupData = {
       firstName,
       lastName,
@@ -33,9 +58,11 @@ export default function Signup() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img className="mx-auto h-16 w-16" src={logoImage} alt="Your Company" />
-      </div>
+      <Link to="/">
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <img className="mx-auto h-16 w-16" src={logoImage} alt="Your Company" />
+        </div>
+      </Link>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
           <form className="space-y-6">
@@ -51,9 +78,9 @@ export default function Signup() {
                   autoComplete="given-name"
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.firstName ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.firstName && <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>}
               </div>
             </div>
             <div>
@@ -68,9 +95,9 @@ export default function Signup() {
                   autoComplete="family-name"
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.lastName ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.lastName && <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>}
               </div>
             </div>
             <div>
@@ -85,9 +112,9 @@ export default function Signup() {
                   autoComplete="username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.username ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.username && <p className="mt-2 text-sm text-red-600">{errors.username}</p>}
               </div>
             </div>
             <div>
@@ -102,9 +129,9 @@ export default function Signup() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.email ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
               </div>
             </div>
             <div>
@@ -119,22 +146,21 @@ export default function Signup() {
                   autoComplete="new-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.password ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
               </div>
             </div>
             <div>
               <button
                 type="button"
                 onClick={handleSignup}
-                className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline"
+                className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign Up
               </button>
             </div>
           </form>
-          {/* Botón de "Ya tengo cuenta, inicia sesión" */}
           <div className="mt-4 text-sm text-center">
             ¿Ya tienes cuenta? <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Inicia sesión</Link>
           </div>

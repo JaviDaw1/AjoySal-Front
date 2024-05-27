@@ -9,20 +9,44 @@ const authService = new AuthService();
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const navigate = useNavigate();
 
+  const validateForm = () => {
+    const errors = {};
+
+    if (!email.trim()) {
+      errors.email = 'El email es requerido';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      errors.email = 'Formato de email no válido';
+    }
+
+    if (!password) {
+      errors.password = 'La contraseña es requerida';
+    }
+
+    return errors;
+  };
+
   const handleLogin = async () => {
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setErrors(errors);
+      return;
+    }
+
     try {
       const response = await authService.login(email, password);
       console.log(response);
-      navigate('/'); // Redireccionar a la página de inicio o dashboard
+      navigate('/');
     } catch (error) {
       console.error('Error:', error);
+      setErrors({ authError: 'Email o contraseña incorrectos' });
     }
   };
 
   const handleSignup = () => {
-    navigate('/signup'); // Redireccionar a la página de registro
+    navigate('/signup');
   };
 
   return (
@@ -46,8 +70,9 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.email ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.email && <p className="mt-2 text-sm text-red-600">{errors.email}</p>}
               </div>
             </div>
             <div>
@@ -63,10 +88,12 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 sm:text-sm sm:leading-6"
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.password ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
               </div>
             </div>
+            {errors.authError && <p className="mt-2 text-sm text-red-600">{errors.authError}</p>}
             <div>
               <button
                 type="button"

@@ -1,6 +1,7 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Dialog, Disclosure, Transition } from '@headlessui/react';
+import { Dialog } from '@headlessui/react';
 import AuthService from '../services/AuthService'; // Importa AuthService
 import logoImage from '../images/logo.jpg';
 
@@ -31,6 +32,8 @@ function Header() {
     checkAdminStatus();
   }, []);
 
+  const links = isAdmin ? adminLinks : clientLinks;
+
   return (
     <header className="bg-yellow-100 border border-black">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
@@ -53,48 +56,15 @@ function Header() {
           </button>
         </div>
         <div className="hidden lg:flex lg:gap-x-12">
-          <Disclosure>
-            {({ open }) => (
-              <>
-                <Disclosure.Button className="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900">
-                  Recetas
-                </Disclosure.Button>
-                <Transition
-                  as={React.Fragment}
-                  enter="transition ease-out duration-200"
-                  enterFrom="opacity-0 translate-y-1"
-                  enterTo="opacity-100 translate-y-0"
-                  leave="transition ease-in duration-150"
-                  leaveFrom="opacity-100 translate-y-0"
-                  leaveTo="opacity-0 translate-y-1"
-                >
-                  <Disclosure.Panel className="mt-2 space-y-2">
-                    {isAdmin ? (
-                      adminLinks.map((link) => (
-                        <Link
-                          key={link.name}
-                          to={link.href}
-                          className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                        >
-                          {link.name}
-                        </Link>
-                      ))
-                    ) : (
-                      clientLinks.map((link) => (
-                        <Link
-                          key={link.name}
-                          to={link.href}
-                          className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                        >
-                          {link.name}
-                        </Link>
-                      ))
-                    )}
-                  </Disclosure.Panel>
-                </Transition>
-              </>
-            )}
-          </Disclosure>
+          {links.map((link) => (
+            <Link
+              key={link.name}
+              to={link.href}
+              className="text-sm font-semibold leading-6 text-gray-900"
+            >
+              {link.name}
+            </Link>
+          ))}
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end">
           <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
@@ -120,66 +90,15 @@ function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10">
               <div className="space-y-2 py-6">
-                <Disclosure>
-                  {({ open }) => (
-                    <>
-                      <Disclosure.Button className="flex w-full items-center justify-between rounded-lg py-2 pl-3 pr-3.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                        Recetas
-                      </Disclosure.Button>
-                      <Transition
-                        as={React.Fragment}
-                        enter="transition ease-out duration-200"
-                        enterFrom="opacity-0 translate-y-1"
-                        enterTo="opacity-100 translate-y-0"
-                        leave="transition ease-in duration-150"
-                        leaveFrom="opacity-100 translate-y-0"
-                        leaveTo="opacity-0 translate-y-1"
-                      >
-                        <Disclosure.Panel className="mt-2 space-y-2">
-                          {isAdmin ? (
-                            adminLinks.map((link) => (
-                              <Link
-                                key={link.name}
-                                to={link.href}
-                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                              >
-                                {link.name}
-                              </Link>
-                            ))
-                          ) : (
-                            clientLinks.map((link) => (
-                              <Link
-                                key={link.name}
-                                to={link.href}
-                                className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                              >
-                                {link.name}
-                              </Link>
-                            ))
-                          )}
-                        </Disclosure.Panel>
-                      </Transition>
-                    </>
-                  )}
-                </Disclosure>
-                <Link
-                  to="/postrecipe"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Subir Recetas
-                </Link>
-                <Link
-                  to="/aboutus"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Conócenos
-                </Link>
-                <Link
-                  to="/contact"
-                  className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Contacto
-                </Link>
+                {links.map((link) => (
+                  <Link
+                    key={link.name}
+                    to={link.href}
+                    className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
               <div className="py-6">
                 <Link
