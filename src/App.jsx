@@ -7,22 +7,25 @@ import Signup from './pages/Signup';
 import HomePage from './pages/HomePage';
 import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
-import RecipeAdmin from './pages/RecipeAdmin';
-import RecipeClient from './pages/RecipeClient';
 import RecipeDetail from './pages/RecipeDetail';
+import Recipes from './pages/Recipes'; // Importa el componente Recipes
+import RecipeAdmin from './pages/RecipeAdmin';
+import RecipeClient from './pages/RecipeClient'; 
+
 
 function App() {
   return (
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/recipeadmin" element={<RecipeAdmin />} />
-        <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/login" element={<Login />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/recipes" element={<Recipes />} /> {/* Añade la ruta para Recipes */}
+        <Route path="/recipeclient" element={<RecipeClient />} />
+        <Route path="/recipeadmin" element={<RecipeAdmin />} />
       </Routes>
     </Router>
   );
