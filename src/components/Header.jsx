@@ -1,3 +1,4 @@
+// Header.jsx
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -7,14 +8,14 @@ import logoImage from '../images/logo.jpg';
 
 const adminLinks = [
   { name: 'Recetas', href: '/recipeadmin' },
-  { name: 'Subir Receta', href: '/postrecipe' },
+  { name: 'Subir Receta', href: '/subirReceta' },
   { name: 'Conócenos', href: '/aboutus' },
   { name: 'Contacto', href: '/contact' },
 ];
 
 const clientLinks = [
   { name: 'Recetas', href: '/recipeclient' },
-  { name: 'Subir Receta', href: '/postrecipe' },
+  { name: 'Subir Receta', href: '/subirReceta' },
   { name: 'Conócenos', href: '/aboutus' },
   { name: 'Contacto', href: '/contact' },
 ];

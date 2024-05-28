@@ -18,4 +18,12 @@ export class RecipeService {
         };
         return axios.get(this.baseUrl + `recipe/${id}`, { headers }).then(res => res.data);
     }
+
+    postRecipe(recipeData) {
+        const token = authService.getToken();
+        const headers = {
+            'Authorization': `Bearer ${token}`
+        };
+        return axios.post(this.baseUrl + "recipe", recipeData, { headers }).then(res => res.data);
+    }
 }
