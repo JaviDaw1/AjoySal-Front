@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import Header from '../components/Header'; // Importa el componente Header
 import Footer from '../components/Footer'; // Importa el componente Footer
@@ -68,11 +69,14 @@ function SubirReceta() {
             <label htmlFor="description" className="block text-sm font-semibold mb-1">Descripción</label>
             <textarea id="description" name="description" value={recipeData.description} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md px-3 py-2" />
           </div>
-          {/* Puedes agregar más campos según sea necesario */}
+          <div className="mb-4">
+            <label htmlFor="nationality" className="block text-sm font-semibold mb-1">Nacionalidad de la receta</label>
+            <input type="text" id="nationality" name="nationality" value={recipeData.nationality} onChange={handleInputChange} className="w-full border border-gray-300 rounded-md px-3 py-2" required />
+          </div>
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Subir Receta</button>
         </form>
       </div>
-      <Footer /> {/* Pie de página */}
+      <Footer />
     </div>
   );
 }

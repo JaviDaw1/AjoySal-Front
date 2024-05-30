@@ -1,8 +1,7 @@
-// App.jsx
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Header from './components/Header';
-import SubirReceta from './pages/SubirReceta'; // Importa el componente SubirReceta
+import PostRecipe from './pages/PostRecipe'; // Importa el componente SubirReceta
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import HomePage from './pages/HomePage';
@@ -26,7 +25,7 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/recipeadmin" element={<RecipeAdmin />} />
-        <Route path="/subirReceta" element={<SubirReceta />} /> {/* Nueva ruta para SubirReceta */}
+        <Route path="/postrecipe" element={<PostRecipe />} /> {/* Nueva ruta para SubirReceta */}
       </Routes>
     </Router>
   );
