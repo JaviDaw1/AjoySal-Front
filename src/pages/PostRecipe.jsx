@@ -1,8 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import Header from '../components/Header'; // Importa el componente Header
-import Footer from '../components/Footer'; // Importa el componente Footer
-import { RecipeService } from '../services/RecipeService';
+import RecipeService from '../services/RecipeService';
 
 const recipeService = new RecipeService();
 
@@ -76,7 +75,6 @@ function SubirReceta() {
           <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded-md">Subir Receta</button>
         </form>
       </div>
-      <Footer />
     </div>
   );
 }

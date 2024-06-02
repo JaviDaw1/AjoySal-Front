@@ -2,51 +2,52 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Carrousel from '../components/Carrousel';
+import Carousel from '../components/Carousel'
 
 function HomePage() {
   return (
-    <div>
+    <div className="flex flex-col min-h-screen">
       <Header />
-      <div className="min-h-screen"> {/* Establece una altura mínima para el contenido */}
-        <Carrousel />
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2">
-            <div className="bg-white overflow-hidden shadow rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="sm:flex sm:items-center">
-                  <div className="sm:flex-shrink-0">
-                    <img className="mx-auto h-12 w-12 rounded-full" src="https://via.placeholder.com/150" alt="" />
-                  </div>
-                  <div className="mt-4 sm:mt-0 sm:ml-4">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Título de la imagen 1</h3>
-                    <div className="mt-2 text-sm text-gray-500">
-                      <p>Descripción de la imagen 1.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="bg-white overflow-hidden shadow rounded-lg">
-              <div className="px-4 py-5 sm:p-6">
-                <div className="sm:flex sm:items-center">
-                  <div className="sm:flex-shrink-0">
-                    <img className="mx-auto h-12 w-12 rounded-full" src="https://via.placeholder.com/150" alt="" />
-                  </div>
-                  <div className="mt-4 sm:mt-0 sm:ml-4">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900">Título de la imagen 2</h3>
-                    <div className="mt-2 text-sm text-gray-500">
-                      <p>Descripción de la imagen 2.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div>
+        <Carousel />
       </div>
-      <br></br>
+      <main className="container mx-auto p-4 flex-grow">
+        {/* Sección de Introducción */}
+        <section className="mb-8">
+          <div className="text-center p-4 bg-white shadow-md rounded-md">
+            <h2 className="text-2xl font-bold mb-4">Bienvenido a Nuestra Página</h2>
+            <p>Aquí va una breve introducción sobre lo que trata tu sitio.</p>
+          </div>
+        </section>
+
+        {/* Sección de Destacados */}
+        <section className="mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="p-4 bg-white shadow-md rounded-md">Destacado 1</div>
+            <div className="p-4 bg-white shadow-md rounded-md">Destacado 2</div>
+            <div className="p-4 bg-white shadow-md rounded-md">Destacado 3</div>
+          </div>
+        </section>
+
+        {/* Galería de Imágenes */}
+        <section className="mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="h-64 bg-gray-300 rounded-md">Imagen 1</div>
+            <div className="h-64 bg-gray-400 rounded-md">Imagen 2</div>
+            <div className="h-64 bg-gray-500 rounded-md">Imagen 3</div>
+          </div>
+        </section>
+
+        {/* Testimonios */}
+        <section className="mb-8">
+          <div className="p-4 bg-white shadow-md rounded-md">
+            <h2 className="text-2xl font-bold mb-4">Testimonios</h2>
+            <div className="mb-4">Testimonio 1</div>
+            <div className="mb-4">Testimonio 2</div>
+            <div>Testimonio 3</div>
+          </div>
+        </section>
+      </main>
       <Footer />
     </div>
   );

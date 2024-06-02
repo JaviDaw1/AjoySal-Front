@@ -4,13 +4,12 @@ import AuthService from "./AuthService";
 
 const authService = new AuthService();
 
-export class RecipeService {
+export default class RecipeService {
   baseUrl = "http://localhost:8080/api/";
 
   findAll() {
     return axios.get(this.baseUrl + "recipe").then((res) => res.data);
   }
-
   findById(id) {
     const token = authService.getToken();
     const headers = {
@@ -20,7 +19,6 @@ export class RecipeService {
       .get(this.baseUrl + `recipe/${id}`, { headers })
       .then((res) => res.data);
   }
-
   postRecipe(recipeData) {
     const token = authService.getToken();
     const headers = {
@@ -30,7 +28,6 @@ export class RecipeService {
       .post(this.baseUrl + "recipe", recipeData, { headers })
       .then((res) => res.data);
   }
-
   updateRecipe(id, recipeData) {
     const token = authService.getToken();
     const headers = {
@@ -40,7 +37,6 @@ export class RecipeService {
       .put(`${this.baseUrl}recipe/${id}`, recipeData, { headers })
       .then((res) => res.data);
   }
-
   deleteRecipe(id) {
     const token = authService.getToken();
     const headers = {

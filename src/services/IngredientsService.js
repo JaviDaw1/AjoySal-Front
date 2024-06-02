@@ -1,20 +1,56 @@
 // IngredientsService.js
 import axios from 'axios';
+import AuthService from './AuthService';
 
-class IngredientsService {
-    constructor() {
-        this.baseUrl = 'http://localhost:8080/api/ingredients/';
-    }
+const authService = new AuthService();
 
-    async findIngredientsByRecipeId(recipeId) {
-        try {
-            const response = await axios.get(`${this.baseUrl}recipe/${recipeId}`);
-            return response.data;
-        } catch (error) {
-            console.error(`Error fetching ingredients for recipe ${recipeId}:`, error);
-            return [];
-        }
+export default class IngredientsService {
+    baseUrl = "http://localhost:8080/api/";
+
+    getAllIngredients() {
+      return axios.get(this.baseUrl + "ingredients").then((res) => res.data);
     }
+    getIngredientsById(id) {
+      const token = authService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      return axios
+        .get(`${this.baseUrl}ingredients/${id}`, { headers })
+        .then((res) => res.data);
+    }
+    addIngredients(opinionData) {
+      const token = authService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      return axios
+        .post(this.baseUrl + "ingredients", opinionData, { headers })
+        .then((res) => res.data);
+    }
+    updateIngredients(id, opinionData) {
+      const token = authService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      return axios
+        .put(`${this.baseUrl}ingredients/patch/${id}`, opinionData, { headers })
+        .then((res) => res.data);
+    }
+    deleteIngredients(id) {
+      const token = authService.getToken();
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+      return axios.delete(`${this.baseUrl}/${id}`, { headers });
+    }
+    getIngredientsByRecipeId(recipeId) {
+        const token = authService.getToken();
+        const headers = {
+          Authorization: `Bearer ${token}`,
+        };
+        return axios
+          .get(`${this.baseUrl}ingredients/recipe/${recipeId}`, { headers })
+          .then((res) => res.data);
+      }
 }
-
-export default IngredientsService;

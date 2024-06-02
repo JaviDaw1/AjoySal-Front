@@ -2,12 +2,13 @@ import axios from "axios";
 import AuthService from "./AuthService";
 
 const authService = new AuthService();
+
 export default class OpinionsService {
   baseUrl = "http://localhost:8080/api/";
+  
   getAllOpinions() {
     return axios.get(this.baseUrl + "opinions").then((res) => res.data);
   }
-
   getOpinionById(id) {
     const token = authService.getToken();
     const headers = {
@@ -17,7 +18,6 @@ export default class OpinionsService {
       .get(`${this.baseUrl}opinions/${id}`, { headers })
       .then((res) => res.data);
   }
-
   addOpinion(opinionData) {
     const token = authService.getToken();
     const headers = {
@@ -27,7 +27,6 @@ export default class OpinionsService {
       .post(this.baseUrl + "opinions", opinionData, { headers })
       .then((res) => res.data);
   }
-
   updateOpinion(id, opinionData) {
     const token = authService.getToken();
     const headers = {
@@ -37,7 +36,6 @@ export default class OpinionsService {
       .put(`${this.baseUrl}opinions/patch/${id}`, opinionData, { headers })
       .then((res) => res.data);
   }
-
   deleteOpinion(id) {
     const token = authService.getToken();
     const headers = {
@@ -45,7 +43,6 @@ export default class OpinionsService {
     };
     return axios.delete(`${this.baseUrl}/${id}`, { headers });
   }
-
   getOpinionsByRecipeId(recipeId) {
     const token = authService.getToken();
     const headers = {

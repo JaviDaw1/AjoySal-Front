@@ -7,8 +7,8 @@ import logoImage from '../images/logo.jpg';
 const authService = new AuthService();
 
 export default function Signup() {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [firstname, setFirstName] = useState('');
+  const [lastname, setLastName] = useState('');
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,8 +17,8 @@ export default function Signup() {
 
   const validate = () => {
     const newErrors = {};
-    if (!firstName) newErrors.firstName = 'Nombre necesario';
-    if (!lastName) newErrors.lastName = 'Apellidos necesarios';
+    if (!firstname) newErrors.firstName = 'Nombre necesario';
+    if (!lastname) newErrors.lastName = 'Apellidos necesarios';
     if (!username) newErrors.username = 'Nombre de usuario necesario';
     if (!email) {
       newErrors.email = 'Correo electrónico necesario';
@@ -41,8 +41,8 @@ export default function Signup() {
     }
 
     const signupData = {
-      firstName,
-      lastName,
+      firstname,
+      lastname,
       username,
       email,
       password
@@ -67,37 +67,37 @@ export default function Signup() {
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
           <form className="space-y-6">
             <div>
-              <label htmlFor="firstName" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
                 First Name
               </label>
               <div className="mt-2">
                 <input
-                  id="firstName"
-                  name="firstName"
+                  id="firstname"
+                  name="firstname"
                   type="text"
                   autoComplete="given-name"
-                  value={firstName}
+                  value={firstname}
                   onChange={(e) => setFirstName(e.target.value)}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.firstName ? 'ring-red-500' : 'ring-gray-300'}`}
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.firstname ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
-                {errors.firstName && <p className="mt-2 text-sm text-red-600">{errors.firstName}</p>}
+                {errors.firstname && <p className="mt-2 text-sm text-red-600">{errors.firstname}</p>}
               </div>
             </div>
             <div>
-              <label htmlFor="lastName" className="block text-sm font-medium leading-6 text-gray-900">
+              <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
                 Last Name
               </label>
               <div className="mt-2">
                 <input
-                  id="lastName"
-                  name="lastName"
+                  id="lastname"
+                  name="lastname"
                   type="text"
                   autoComplete="family-name"
-                  value={lastName}
+                  value={lastname}
                   onChange={(e) => setLastName(e.target.value)}
-                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.lastName ? 'ring-red-500' : 'ring-gray-300'}`}
+                  className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.lastname ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
-                {errors.lastName && <p className="mt-2 text-sm text-red-600">{errors.lastName}</p>}
+                {errors.lastname && <p className="mt-2 text-sm text-red-600">{errors.lastname}</p>}
               </div>
             </div>
             <div>
