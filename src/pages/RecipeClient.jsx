@@ -1,9 +1,9 @@
 // eslint-disable-next-line no-unused-vars
 import React, { Component } from 'react';
-import Header from '../components/Header.jsx';
-import Footer from '../components/Footer.jsx';
 import { Link } from 'react-router-dom';
-import { RecipeService } from '../services/RecipeService.js';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import RecipeService from '../services/RecipeService';
 
 export default class RecipeClient extends Component {
     constructor(props) {
@@ -30,31 +30,26 @@ export default class RecipeClient extends Component {
     render() {
         const { recipes } = this.state;
         return (
-            <div>
-                <Header />
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4">
+            <div className='overflow-x-hidden'>
+                <Header/>
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6">
                     {recipes.map((recipe, index) => (
-                        <div key={index} className="border border-gray-300 rounded-lg overflow-hidden">
-                            <div className="flex">
-                                <div className="w-full sm:w-1/2">
-                                    <img src={recipe.image} alt={recipe.name} className="w-full rounded-lg" />
+                        <Link key={index} to={`/recipe/${recipe.id}`}>
+                            <div className="max-w-sm border border-gray-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500 hover:bg-gray-100 shadow hover:shadow-md hover:shadow-gray-200 transition-all duration-200">
+                                <div className="w-full">
+                                    <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />
                                 </div>
-                                <div className="w-full sm:w-1/2 p-4">
+                                <div className="p-4">
                                     <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
-                                    <p><strong>Description:</strong> {recipe.description}</p>
-                                    <Link
-                                        to={`/recipe/${recipe.id}`}
-                                        onClick={() => console.log('ID de receta:', recipe.id)}
-                                        className="block mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                                    >
-                                        View Recipe
-                                    </Link>
+                                    <hr className="my-4"/>
+                                    <p className="text-sm text-gray-700 mb-2">{recipe.description}</p>
+                                    <p className="text-sm text-gray-700"><strong>Autor: </strong> {recipe.user.username}</p>
                                 </div>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
-                <Footer />
+                <Footer/>
             </div>
         );
     }
