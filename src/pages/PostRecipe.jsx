@@ -28,7 +28,7 @@ function SubirReceta() {
     e.preventDefault();
     try {
       await recipeService.postRecipe(recipeData);
-      window.location.href = '/recipes';
+      window.location.href = '/uploadedrecipes';
     } catch (error) {
       console.error('Error al subir la receta:', error);
     }

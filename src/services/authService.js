@@ -49,6 +49,22 @@ export default class AuthService {
     return userInfo;
 }
 
+async getUploadedRecipes(userId) {
+  try {
+    const response = await axios.get(`${this.baseUrl}/recipe?userId=${userId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching uploaded recipes:', error);
+    throw new Error('Error fetching uploaded recipes');
+  }
+}
+
+
   // Función para verificar si el usuario es admin
   static async isUserAdmin() {
     const token = localStorage.getItem("token");
