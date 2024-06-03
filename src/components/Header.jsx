@@ -1,9 +1,11 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Dialog } from '@headlessui/react';
 import AuthService from '../services/AuthService'; // Importa AuthService
 import logoImage from '../images/logo.jpg';
+import { FaUserCircle } from 'react-icons/fa'; // Importa el ícono de usuario
+
+const authService = new AuthService();
 
 const adminLinks = [
   { name: 'Recetas', href: '/recipeadmin' },
@@ -22,16 +24,28 @@ const clientLinks = [
 function Header() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
+  const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
+    const fetchData = async () => {
       const adminStatus = await AuthService.isUserAdmin();
       setIsAdmin(adminStatus);
+
+      const userInfo = authService.getUserInfo();
+      console.log('User Info:', userInfo); // Debugging: Verificar la información del usuario
+      setUser(userInfo);
     };
-    checkAdminStatus();
+    fetchData();
   }, []);
 
   const links = isAdmin ? adminLinks : clientLinks;
+
+  const handleLogout = () => {
+    authService.logout();
+    setUser(null);
+    console.log('User logged out'); // Debugging: Verificar que el usuario haya cerrado sesión
+  };
 
   return (
     <header className="bg-yellow-100">
@@ -65,10 +79,33 @@ function Header() {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-            Inicia Sesión<span aria-hidden="true">&rarr;</span>
-          </Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4">
+          {user ? (
+            <div>
+              <button
+                onClick={() => setDropdownOpen(!dropdownOpen)}
+                className="-m-1.5 p-1.5 focus:outline-none"
+              >
+                <FaUserCircle className="text-gray-900 mt-2" />
+              </button>
+              {dropdownOpen && (
+                <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-10 right-0 mr-3">                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Mi Perfil
+                  </Link>
+                  <Link to="/uploadedrecipes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Recetas Subidas
+                  </Link>
+                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    Logout
+                  </button>
+                </div>
+              )}
+            </div>
+          ) : (
+            <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
+              Inicia Sesión<span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
@@ -98,15 +135,39 @@ function Header() {
                     {link.name}
                   </Link>
                 ))}
+                {user && (
+                  <>
+                    <Link
+                      to="/profile"
+                      className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Mi Perfil
+                    </Link>
+                    <Link
+                      to="/uploadedrecipes"
+                      className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                    >
+                      Recetas Subidas
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="block rounded-lg py-2 pl-6 pr-3 text-sm font-semibold leading-7 text-gray-900 hover:bg-gray-50 w-full text-left"
+                    >
+                      Logout
+                    </button>
+                  </>
+                )}
               </div>
-              <div className="py-6">
-                <Link
-                  to="/login"
-                  className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                >
-                  Inicia Sesión
-                </Link>
-              </div>
+              {!user && (
+                <div className="py-6">
+                  <Link
+                    to="/login"
+                    className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                  >
+                    Inicia Sesión
+                  </Link>
+                </div>
+              )}
             </div>
           </div>
         </Dialog.Panel>
