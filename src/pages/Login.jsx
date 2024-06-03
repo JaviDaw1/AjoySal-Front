@@ -1,8 +1,9 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import logoImage from '../images/logo.jpg';
+import { FaExclamationCircle } from 'react-icons/fa';
 
 const authService = new AuthService();
 
@@ -10,7 +11,19 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state;
+
+  useEffect(() => {
+    if (state && state.message) {
+      setErrorMessage(state.message);
+      setTimeout(() => {
+        setErrorMessage('');
+      }, 3000);
+    }
+  }, [state]);
 
   const validateForm = () => {
     const errors = {};
@@ -28,17 +41,18 @@ export default function Login() {
     return errors;
   };
 
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setErrors(errors);
       return;
     }
-  
+
     try {
       const response = await authService.login(email, password);
       console.log(response);
-      // Almacena el ID del usuario en localStorage
       localStorage.setItem('user', JSON.stringify({ user: response.user }));
       navigate('/');
     } catch (error) {
@@ -46,7 +60,6 @@ export default function Login() {
       setErrors({ authError: 'Email o contraseña incorrectos' });
     }
   };
-  
 
   const handleSignup = () => {
     navigate('/signup');
@@ -54,12 +67,14 @@ export default function Login() {
 
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <img className="mx-auto h-16 w-16" src={logoImage} alt="Your Company" />
-      </div>
+      <Link to={"/"}>
+        <div className="sm:mx-auto sm:w-full sm:max-w-md">
+          <img className="mx-auto h-16 w-16" src={logoImage} />
+        </div>
+      </Link>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
         <div className="bg-white px-6 py-12 shadow sm:rounded-lg sm:px-12">
-          <form className="space-y-6">
+          <form onSubmit={handleLogin} className="space-y-6">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
                 Correo electrónico
@@ -97,10 +112,10 @@ export default function Login() {
               </div>
             </div>
             {errors.authError && <p className="mt-2 text-sm text-red-600">{errors.authError}</p>}
-            <div>
+            <hr></hr>
+            <div className='mt-4'>
               <button
-                type="button"
-                onClick={handleLogin}
+                type="submit"
                 className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Iniciar Sesión
@@ -110,8 +125,15 @@ export default function Login() {
               <p className="text-sm text-gray-500">¿No tienes una cuenta? <button type="button" onClick={handleSignup} className="text-blue-600">Regístrate aquí</button></p>
             </div>
           </form>
+          {errorMessage && (
+            <div className="mt-4 flex items-center justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md">
+              <FaExclamationCircle className="mr-2" />
+              <span>{errorMessage}</span>
+            </div>
+          )}
         </div>
       </div>
+
     </div>
   );
 }
