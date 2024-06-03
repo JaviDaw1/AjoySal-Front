@@ -34,16 +34,19 @@ export default function Login() {
       setErrors(errors);
       return;
     }
-
+  
     try {
       const response = await authService.login(email, password);
       console.log(response);
+      // Almacena el ID del usuario en localStorage
+      localStorage.setItem('userInfo', JSON.stringify({ userId: response.user.id }));
       navigate('/');
     } catch (error) {
       console.error('Error:', error);
       setErrors({ authError: 'Email o contraseña incorrectos' });
     }
   };
+  
 
   const handleSignup = () => {
     navigate('/signup');

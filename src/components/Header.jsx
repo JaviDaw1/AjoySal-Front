@@ -5,6 +5,8 @@ import { Dialog } from '@headlessui/react';
 import AuthService from '../services/AuthService'; // Importa AuthService
 import logoImage from '../images/logo.jpg';
 
+const authService = new AuthService();
+
 const adminLinks = [
   { name: 'Recetas', href: '/recipeadmin' },
   { name: 'Subir Receta', href: '/postrecipe' },
@@ -22,16 +24,27 @@ const clientLinks = [
 function Header() {
   const [isAdmin, setIsAdmin] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [user, setUser] = useState(null); // Estado para almacenar la información del usuario
 
   useEffect(() => {
-    const checkAdminStatus = async () => {
+    const fetchData = async () => {
       const adminStatus = await AuthService.isUserAdmin();
       setIsAdmin(adminStatus);
+
+      const userInfo = authService.getUserInfo();
+      console.log('User Info:', userInfo); // Debugging: Verificar la información del usuario
+      setUser(userInfo);
     };
-    checkAdminStatus();
+    fetchData();
   }, []);
 
   const links = isAdmin ? adminLinks : clientLinks;
+
+  const handleLogout = () => {
+    authService.logout();
+    setUser(null);
+    console.log('User logged out'); // Debugging: Verificar que el usuario haya cerrado sesión
+  };
 
   return (
     <header className="bg-yellow-100">
@@ -65,10 +78,22 @@ function Header() {
             </Link>
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-          <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
-            Inicia Sesión<span aria-hidden="true">&rarr;</span>
-          </Link>
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4">
+          {user ? (
+            <>
+              <img
+                src={user.profileImageUrl} // Agrega la URL de la imagen de perfil
+                alt="Profile"
+                className="w-10 h-10 rounded-full"
+              />
+              <span className="text-sm font-semibold leading-6 text-gray-900">{user.username}</span>
+              <button onClick={handleLogout} className="text-sm font-semibold leading-6 text-gray-900">Logout</button>
+            </>
+          ) : (
+            <Link to="/login" className="text-sm font-semibold leading-6 text-gray-900">
+              Inicia Sesión<span aria-hidden="true">&rarr;</span>
+            </Link>
+          )}
         </div>
       </nav>
       <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>

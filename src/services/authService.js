@@ -18,6 +18,7 @@ export default class AuthService {
     const data = await response.json();
     if (response.ok) {
       localStorage.setItem("token", data.token);
+      localStorage.setItem("userInfo", JSON.stringify(data.user._id));
     }
     return data;
   }
@@ -40,6 +41,11 @@ export default class AuthService {
   getToken() {
     return localStorage.getItem("token");
   }
+
+  getUserInfo() {
+    const userInfo = localStorage.getItem("userInfo");
+    return userInfo;
+}
 
   // Función para verificar si el usuario es admin
   static async isUserAdmin() {
