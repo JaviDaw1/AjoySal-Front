@@ -39,7 +39,7 @@ export default function Login() {
       const response = await authService.login(email, password);
       console.log(response);
       // Almacena el ID del usuario en localStorage
-      localStorage.setItem('userInfo', JSON.stringify({ userId: response.user.id }));
+      localStorage.setItem('user', JSON.stringify({ user: response.user }));
       navigate('/');
     } catch (error) {
       console.error('Error:', error);
