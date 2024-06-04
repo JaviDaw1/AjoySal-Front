@@ -2,18 +2,15 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import Carousel from '../components/Carousel'
 
-function HomePage() {
+export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <div>
-        <Carousel />
-      </div>
       <main className="container mx-auto p-4 flex-grow">
         {/* Sección de Introducción */}
         <section className="mb-8">
+
           <div className="text-center p-4 bg-white shadow-md rounded-md">
             <h2 className="text-2xl font-bold mb-4">Bienvenido a Nuestra Página</h2>
             <p>Aquí va una breve introducción sobre lo que trata tu sitio.</p>
@@ -52,5 +49,3 @@ function HomePage() {
     </div>
   );
 }
-
-export default HomePage;

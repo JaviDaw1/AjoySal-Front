@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import PostRecipe from './pages/PostRecipe'; // Importa el componente SubirReceta
+import PostRecipe from './pages/PostRecipe';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import HomePage from './pages/HomePage';
@@ -13,9 +13,9 @@ import RecipeAdmin from './pages/RecipeAdmin';
 import RecipeClient from './pages/RecipeClient'; 
 import Profile from './pages/Profile';
 import UploadedRecipes  from './pages/UploadedRecipes';
+import Error404 from './pages/Error404';
 
-
-function App() {
+export default function App() {
   return (
     <Router>
       <Routes>
@@ -31,9 +31,9 @@ function App() {
         <Route path="/postrecipe" element={<PostRecipe />} /> 
         <Route path="/profile" element={<Profile />} />
         <Route path="/uploadedrecipes" element={<UploadedRecipes />} />
+        <Route path="/postrecipe" element={<PostRecipe />} />
+        <Route path="*" element={<Error404 />} />
       </Routes>
     </Router>
   );
 }
-
-export default App;

@@ -68,7 +68,7 @@ export default function Signup() {
           <form className="space-y-6">
             <div>
               <label htmlFor="firstname" className="block text-sm font-medium leading-6 text-gray-900">
-                First Name
+                Nombre
               </label>
               <div className="mt-2">
                 <input
@@ -85,7 +85,7 @@ export default function Signup() {
             </div>
             <div>
               <label htmlFor="lastname" className="block text-sm font-medium leading-6 text-gray-900">
-                Last Name
+                Apellidos
               </label>
               <div className="mt-2">
                 <input
@@ -102,7 +102,7 @@ export default function Signup() {
             </div>
             <div>
               <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
-                Username
+                Nombre de usuario
               </label>
               <div className="mt-2">
                 <input
@@ -119,7 +119,7 @@ export default function Signup() {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
-                Email
+                Correo electrónico
               </label>
               <div className="mt-2">
                 <input
@@ -136,7 +136,7 @@ export default function Signup() {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
-                Password
+                Contraseña
               </label>
               <div className="mt-2">
                 <input
@@ -151,13 +151,14 @@ export default function Signup() {
                 {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
               </div>
             </div>
+            <hr></hr>
             <div>
               <button
                 type="button"
                 onClick={handleSignup}
                 className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign Up
+                Registrarte
               </button>
             </div>
           </form>
