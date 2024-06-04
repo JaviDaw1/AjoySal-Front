@@ -46,8 +46,8 @@ export default function PostRecipe() {
       formData.append(key, recipeData[key]);
     }
     try {
-      await recipeService.postRecipe(formData);
-      window.location.href = '/recipes';
+      await recipeService.postRecipe(recipeData);
+      window.location.href = '/uploadedrecipes';
     } catch (error) {
       console.error('Error al subir la receta:', error);
     }

@@ -10,6 +10,7 @@ export default class RecipeService {
   findAll() {
     return axios.get(this.baseUrl + "recipe").then((res) => res.data);
   }
+
   findById(id) {
     const token = authService.getToken();
     const headers = {
@@ -19,6 +20,21 @@ export default class RecipeService {
       .get(this.baseUrl + `recipe/${id}`, { headers })
       .then((res) => res.data);
   }
+
+  async getRecipesByUserId(userId) {
+    const response = await fetch(`${this.baseUrl}recipe/user/${userId}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    if (!response.ok) {
+      throw new Error('Error fetching recipes');
+    }
+    return response.json();
+  }  
+
   postRecipe(recipeData) {
     const token = authService.getToken();
     const headers = {
@@ -28,6 +44,7 @@ export default class RecipeService {
       .post(this.baseUrl + "recipe", recipeData, { headers })
       .then((res) => res.data);
   }
+
   updateRecipe(id, recipeData) {
     const token = authService.getToken();
     const headers = {
@@ -37,6 +54,7 @@ export default class RecipeService {
       .put(`${this.baseUrl}recipe/${id}`, recipeData, { headers })
       .then((res) => res.data);
   }
+
   deleteRecipe(id) {
     const token = authService.getToken();
     const headers = {

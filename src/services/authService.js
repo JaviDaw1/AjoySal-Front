@@ -44,10 +44,31 @@ export default class AuthService {
     return localStorage.getItem("token");
   }
 
-  getUserInfo() {
+getUserInfo() {
     const userInfo = localStorage.getItem("user");
-    return userInfo;
+    return userInfo ? JSON.parse(userInfo) : null;
 }
+
+async getUploadedRecipes(userId) {
+  try {
+    const response = await fetch(`${this.baseUrl}recipe/users/${userId}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${this.getToken()}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error('Error fetching uploaded recipes');
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching uploaded recipes:', error);
+    throw new Error('Error fetching uploaded recipes');
+  }
+}
+
 
   // Función para verificar si el usuario es admin
   static async isUserAdmin() {
