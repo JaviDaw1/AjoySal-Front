@@ -22,7 +22,7 @@ export default class RecipeService {
   }
 
   async getRecipesByUserId(userId) {
-    const response = await fetch(`${this.baseUrl}/recipe?userId=${userId}`, {
+    const response = await fetch(`${this.baseUrl}recipe/user/?userId=${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -34,7 +34,6 @@ export default class RecipeService {
     }
     return response.json();
   }  
-
 
   postRecipe(recipeData) {
     const token = authService.getToken();

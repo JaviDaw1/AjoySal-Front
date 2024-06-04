@@ -44,14 +44,14 @@ export default class AuthService {
     return localStorage.getItem("token");
   }
 
-  getUserInfo() {
+getUserInfo() {
     const userInfo = localStorage.getItem("user");
-    return userInfo;
+    return userInfo ? JSON.parse(userInfo) : null;
 }
 
 async getUploadedRecipes(userId) {
   try {
-    const response = await axios.get(`${this.baseUrl}/recipe?userId=${userId}`, {
+    const response = await axios.get(`${this.baseUrl}recipe/users/?userId=${userId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.getToken()}`,
