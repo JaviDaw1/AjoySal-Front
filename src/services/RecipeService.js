@@ -22,7 +22,7 @@ export default class RecipeService {
   }
 
   async getRecipesByUserId(userId) {
-    const response = await fetch(`${this.baseUrl}recipe/user/?userId=${userId}`, {
+    const response = await fetch(`${this.baseUrl}recipe/user/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',

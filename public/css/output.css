@@ -935,6 +935,11 @@ select {
   margin-bottom: -1.5rem;
 }
 
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -943,6 +948,11 @@ select {
 .my-4 {
   margin-top: 1rem;
   margin-bottom: 1rem;
+}
+
+.my-5 {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
 }
 
 .my-6 {
@@ -972,6 +982,10 @@ select {
 
 .mb-8 {
   margin-bottom: 2rem;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .mt-10 {
@@ -1112,6 +1126,10 @@ select {
 
 .w-4 {
   width: 1rem;
+}
+
+.w-48 {
+  width: 12rem;
 }
 
 .w-5 {
@@ -1339,6 +1357,12 @@ select {
   margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
+.space-x-4 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-x-reverse: 0;
+  margin-right: calc(1rem * var(--tw-space-x-reverse));
+  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
+}
+
 .space-y-2 > :not([hidden]) ~ :not([hidden]) {
   --tw-space-y-reverse: 0;
   margin-top: calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));
@@ -1375,6 +1399,10 @@ select {
 
 .overflow-y-scroll {
   overflow-y: scroll;
+}
+
+.rounded {
+  border-radius: 0.25rem;
 }
 
 .rounded-full {
@@ -1508,6 +1536,11 @@ select {
   background-color: rgb(79 70 229 / var(--tw-bg-opacity));
 }
 
+.bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
+
 .bg-transparent {
   background-color: transparent;
 }
@@ -1561,6 +1594,10 @@ select {
 
 .p-6 {
   padding: 1.5rem;
+}
+
+.p-8 {
+  padding: 2rem;
 }
 
 .p-px {
@@ -1681,6 +1718,10 @@ select {
 
 .pt-4 {
   padding-top: 1rem;
+}
+
+.text-left {
+  text-align: left;
 }
 
 .text-center {
@@ -1976,6 +2017,11 @@ select {
 .hover\:bg-gray-50:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
 }
 
 .hover\:bg-white:hover {

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
@@ -33,7 +34,7 @@ const UploadedRecipes = () => {
         {
         recipes.length > 0 ? (
           recipes.map((recipe) => (
-            <Link key={recipe.id} to={`recipe/${recipe.id}`}>
+            <Link key={recipe.id} to={`/recipe/${recipe.id}`}>
               <div className="max-w-sm border border-gray-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500 hover:bg-gray-100 shadow hover:shadow-md hover:shadow-gray-200 transition-all duration-200">
                 <div className="w-full">
                   <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />

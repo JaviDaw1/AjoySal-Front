@@ -51,13 +51,18 @@ getUserInfo() {
 
 async getUploadedRecipes(userId) {
   try {
-    const response = await axios.get(`${this.baseUrl}recipe/users/?userId=${userId}`, {
+    const response = await fetch(`${this.baseUrl}recipe/users/${userId}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${this.getToken()}`,
       },
     });
-    return response.data;
+
+    if (!response.ok) {
+      throw new Error('Error fetching uploaded recipes');
+    }
+
+    return await response.json();
   } catch (error) {
     console.error('Error fetching uploaded recipes:', error);
     throw new Error('Error fetching uploaded recipes');
