@@ -28,10 +28,6 @@ const RecipeDetail = () => {
     };
     fetchRecipeAndOpinions();
   }, [id]);
-
-  if (!recipe) {
-    return <div className="flex justify-center items-center h-screen">Loading...</div>;
-  }
   
   const instructionsLines = recipe.instructions.split('\n');
 

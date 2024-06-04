@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Header from '../components/Header';
-import Footer from '../components/Footer'
+import Footer from '../components/Footer';
 import RecipeService from '../services/RecipeService';
 
 const recipeService = new RecipeService();
