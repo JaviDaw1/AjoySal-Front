@@ -3,25 +3,21 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
-import IngredientsService from '../services/IngredientsService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const RecipeDetail = () => {
   const { id } = useParams();
-  const [recipe, setRecipe] = useState(null); // Cambiado a recipe en lugar de recipes
+  const [recipe, setRecipe] = useState(null);
   const [opinions, setOpinions] = useState([]);
-  const [ingredients, setIngredients] = useState([]);
 
   useEffect(() => {
     const fetchRecipeAndOpinions = async () => {
       try {
         const recipeData = await new RecipeService().findById(id);
         const opinionsData = await new OpinionsService().getOpinionsByRecipeId(id);
-        const ingredientsData = await new IngredientsService().getIngredientsByRecipeId(id);
         setRecipe(recipeData);
         setOpinions(opinionsData);
-        setIngredients(ingredientsData);
       } catch (error) {
         console.error('Error fetching recipe and opinions:', error);
       }
@@ -33,7 +29,7 @@ const RecipeDetail = () => {
     <div className="flex flex-col min-h-screen">
       <Header />
       <div className="flex-grow p-6 w-full mx-auto shadow-lg bg-white rounded-lg">
-        {recipe && ( // Verificamos si recipe existe antes de renderizar los detalles
+        {recipe && (
           <div>
             <div className="flex flex-col md:flex-row mb-6">
               <div className="md:w-1/2 md:pr-8 flex flex-col justify-start">
@@ -52,11 +48,7 @@ const RecipeDetail = () => {
             <div className="mb-6 flex flex-col md:flex-row justify-between">
               <div className="w-full md:w-1/2 mb-6 md:mb-0">
                 <h2 className="mb-4 text-2xl font-semibold">Ingredientes necesarios</h2>
-                <ul className="list-disc list-inside">
-                  {ingredients.map((ingredient, index) => (
-                    <li key={index} className="mb-2">{ingredient.name}</li>
-                  ))}
-                </ul>
+                {recipe.ingredients}
               </div>
               <div className="w-full md:w-1/2">
                 <h2 className="mb-4 text-2xl font-semibold">Elaboración de la receta</h2>
