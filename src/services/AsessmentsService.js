@@ -9,6 +9,7 @@ export default class AsessmentsService {
   getAllAsessments() {
     return axios.get(this.baseUrl + "asessments").then((res) => res.data);
   }
+
   getAsessmentsById(id) {
     const token = authService.getToken();
     const headers = {
@@ -18,24 +19,27 @@ export default class AsessmentsService {
       .get(`${this.baseUrl}asessments/${id}`, { headers })
       .then((res) => res.data);
   }
-  addAsessments(opinionData) {
+
+  addAsessments(asessmentsData) {
     const token = authService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     return axios
-      .post(this.baseUrl + "asessments", opinionData, { headers })
+      .post(this.baseUrl + "asessments", asessmentsData, { headers })
       .then((res) => res.data);
   }
-  updateAsessments(id, opinionData) {
+
+  updateAsessments(id, asessmentsData) {
     const token = authService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     return axios
-      .put(`${this.baseUrl}asessments/patch/${id}`, opinionData, { headers })
+      .put(`${this.baseUrl}asessments/patch/${id}`, asessmentsData, { headers })
       .then((res) => res.data);
   }
+
   deleteAsessments(id) {
     const token = authService.getToken();
     const headers = {
@@ -43,6 +47,7 @@ export default class AsessmentsService {
     };
     return axios.delete(`${this.baseUrl}/${id}`, { headers });
   }
+
   getAsessmentsByRecipeId(recipeId) {
     const token = authService.getToken();
     const headers = {
@@ -52,4 +57,25 @@ export default class AsessmentsService {
       .get(`${this.baseUrl}asessments/recipe/${recipeId}`, { headers })
       .then((res) => res.data);
   }
+  
+  countAsessmentsByRecipeId(recipeId) {
+    const token = authService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios
+      .get(`${this.baseUrl}asessments/count/recipe/${recipeId}`, { headers })
+      .then((res) => res.data);
+  }
+
+  getAverageRatingByRecipeId(recipeId) {
+    const token = authService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios
+      .get(`${this.baseUrl}asessments/average/recipe/${recipeId}`, { headers })
+      .then((res) => res.data);
+}
+  
 }
