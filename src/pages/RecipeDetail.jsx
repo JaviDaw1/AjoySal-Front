@@ -25,6 +25,8 @@ const RecipeDetail = () => {
   const [newOpinionContent, setNewOpinionContent] = useState('');
   const [newRating, setNewRating] = useState(0);
   const [user, setUser] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
+
 
   useEffect(() => {
     const fetchRecipeAndDetails = async () => {
@@ -51,6 +53,13 @@ const RecipeDetail = () => {
 
   const handleAddOpinion = async () => {
     try {
+      if (user && user.user.id === recipe.user.id) {
+        setErrorMessage('No puedes publicar una opinión sobre tu propia receta.');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000); // 5 segundos
+        return;
+      }
       const opinionData = {
         title: newOpinionTitle,
         content: newOpinionContent,
@@ -69,6 +78,13 @@ const RecipeDetail = () => {
 
   const handleAddRating = async () => {
     try {
+      if (user && user.user.id === recipe.user.id) {
+        setErrorMessage('No puedes valorar tu propia receta.');
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000); // 5 segundos
+        return;
+      }
       const ratingData = {
         calification: newRating,
         recipe: { id: id },
@@ -177,9 +193,15 @@ const RecipeDetail = () => {
                   <p>{opinion.content}</p>
                 </div>
               ))}
+              {errorMessage && (
+                <div className="text-red-500">{errorMessage}</div>
+              )}
             </div>
             <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
               <h2 className="mb-4 text-2xl font-semibold">Añadir Opinión</h2>
+              {errorMessage && (
+                <div className="text-red-500">{errorMessage}</div>
+              )}
               <input
                 type="text"
                 className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
@@ -203,6 +225,9 @@ const RecipeDetail = () => {
             </div>
             <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
               <h2 className="mb-4 text-2xl font-semibold">Valorar Receta</h2>
+              {errorMessage && (
+                <div className="text-red-500">{errorMessage}</div>
+              )}
               <p>Selecciona tu valoración:</p>
               {renderStars(newRating)}
               <button
