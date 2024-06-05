@@ -37,7 +37,7 @@ const RecipeClient = () => {
         fetchData();
     }, []);
 
-    const handlePostRecipeClick = (e) => {
+    const handlePostRecipeClick = (e, recipeId) => {
         e.preventDefault();
         if (!user) {
             setLoading(true);
@@ -46,20 +46,18 @@ const RecipeClient = () => {
                 navigate('/login', { replace: true, state: { message: 'Tienes que estar logueado para ver los detalles de la receta' } });
             }, 2000);
         } else {
-            navigate('/postrecipe');
+            navigate(`/recipe/${recipeId}`);
         }
     };
 
     return (
-        <div className='overflow-x-hidden'>
+        <div className='flex flex-col min-h-screen justify-between'>
             <Header />
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 p-6">
+            <div className="flex flex-wrap justify-center p-2">
                 {recipes.map((recipe, index) => (
-                    <Link key={index} onClick={handlePostRecipeClick} to={`/recipe/${recipe.id}`}>
-                        <div className="max-w-sm border border-gray-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500 hover:bg-gray-100 shadow hover:shadow-md hover:shadow-gray-200 transition-all duration-200">
-                            <div className="w-full">
-                                <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />
-                            </div>
+                    <Link key={index} onClick={(e) => handlePostRecipeClick(e, recipe.id)} className="flex flex-col max-w-sm w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 p-4">
+                        <div className="border border-gray-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500 hover:bg-gray-100 shadow hover:shadow-md hover:shadow-gray-200 ease-in-out transition-all duration-200 flex-grow">
+                            <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />
                             <div className="p-4">
                                 <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
                                 <hr className="my-4" />

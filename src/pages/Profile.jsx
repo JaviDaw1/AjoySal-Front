@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
@@ -53,7 +54,7 @@ const Profile = () => {
                                 </label>
                             </div>
                             <hr className='my-5'></hr>
-                            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 transition-all duration-200 text-white font-semibold py-2 px-4 rounded">
+                            <button onClick={handleLogout} className="bg-red-500 hover:bg-red-600 ease-in-out transition-all duration-200 text-white font-semibold py-2 px-4 rounded">
                                 Cerrar sesión
                             </button>
                         </div>
