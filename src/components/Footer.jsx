@@ -83,7 +83,7 @@ const Footer = () => {
             <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Twitter">
               <FaTwitter />
             </Link>
-            <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Instagram">
+            <Link to="" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Instagram">
               <FaInstagram />
             </Link>
             <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Facebook">

@@ -13,8 +13,6 @@ const asessmentsService = new AsessmentsService();
 const recipeService = new RecipeService();
 const authService = new AuthService();
 
-
-
 const RecipeDetail = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -105,6 +103,26 @@ const RecipeDetail = () => {
     );
   };
 
+  const renderIngredients = (ingredients) => {
+    return (
+      <ul className="list-disc pl-5">
+        {ingredients.split(', ').map((ingredient, index) => (
+          <li className='mb-2 text-lg' key={index}>{ingredient}</li>
+        ))}
+      </ul>
+    );
+  };
+
+  const renderInstructions = (instructions) => {
+    return (
+      <ol className="list-decimal pl-5">
+        {instructions.split(/\d+\.\s/).map((instruction, index) => 
+          instruction.trim() && <li className='mb-2 text-lg' key={index}>{instruction.trim()}</li>
+        )}
+      </ol>
+    );
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -120,9 +138,9 @@ const RecipeDetail = () => {
                     <span className="text-base text-gray-500 ml-1">
                       ({averageRating.toFixed(1)})
                     </span>
-                  </span>
-                  <span className="text-sm text-gray-500 ml-4">
-                    {ratingCount} valoraciones
+                    <span className="text-sm text-gray-500 ml-4">
+                      {ratingCount} valoraciones
+                    </span>
                   </span>
                 </h1>
                 <hr className="mb-6" />
@@ -139,11 +157,11 @@ const RecipeDetail = () => {
             <div className="mb-6 flex flex-col md:flex-row justify-between">
               <div className="w-full md:w-1/2 mb-6 md:mb-0">
                 <h2 className="mb-4 text-2xl font-semibold">Ingredientes necesarios</h2>
-                {recipe.ingredients}
+                {renderIngredients(recipe.ingredients)}
               </div>
               <div className="w-full md:w-1/2">
                 <h2 className="mb-4 text-2xl font-semibold">Elaboración de la receta</h2>
-                {recipe.instructions}
+                {renderInstructions(recipe.instructions)}
               </div>
             </div>
             <hr className="mb-6" />
