@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+// eslint-disable-next-line no-unused-varsimport React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -49,15 +48,15 @@ export default function PostRecipe() {
 
   const validateForm = () => {
     const errors = {};
+
     if (!recipeData.name) {
       errors.name = 'El nombre de la receta es requerido';
     }
     if (!recipeData.ingredients) {
       errors.ingredients = 'Los ingredientes son requeridos';
-    }
-    if (!recipeData.instructions) {
+    }if (!recipeData.instructions) {
       errors.instructions = 'Las instrucciones son requeridas';
-    }
+    }    
     if (!recipeData.time || isNaN(recipeData.time)) {
       errors.time = 'El tiempo debe ser un número válido';
     }
@@ -98,6 +97,7 @@ export default function PostRecipe() {
                   value={recipeData.name}
                   onChange={handleInputChange}
                   className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.name ? 'border-red-500' : ''}`}
+                  placeholder="Ejemplo: Ensalada César"
                   required
                 />
                 {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
@@ -111,6 +111,7 @@ export default function PostRecipe() {
                   value={recipeData.nationality}
                   onChange={handleInputChange}
                   className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.nationality ? 'border-red-500' : ''}`}
+                  placeholder="Ejemplo: Italiana"
                   required
                 />
                 {errors.nationality && <p className="text-sm text-red-500">{errors.nationality}</p>}
@@ -141,6 +142,7 @@ export default function PostRecipe() {
                   value={recipeData.image}
                   onChange={handleInputChange}
                   className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.image ? 'border-red-500' : ''}`}
+                  placeholder="https://ejemplo.com/imagen.jpg"
                   required
                 />
                 {errors.image && <p className="text-sm text-red-500">{errors.image}</p>}
@@ -153,6 +155,7 @@ export default function PostRecipe() {
                 name="instructions"
                 value={recipeData.instructions}
                 onChange={handleInputChange}
+                placeholder="Ejemplo: Paso 1: Lava los ingredientes. Paso 2: Corta las verduras."
                 className={`w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.instructions ? 'border-red-500' : ''}`}
                 required
               />
@@ -166,6 +169,7 @@ export default function PostRecipe() {
                 value={recipeData.description}
                 onChange={handleInputChange}
                 className="w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm"
+                placeholder="Ejemplo: Esta es una deliciosa ensalada César perfecta para cualquier ocasión."
               />
             </div>
             <div>
@@ -176,6 +180,7 @@ export default function PostRecipe() {
                 value={recipeData.ingredients}
                 onChange={handleInputChange}
                 className={`w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.ingredients ? 'border-red-500' : ''}`}
+                placeholder="Ejemplo: Lechuga, Pollo, Queso parmesano, Aderezo César"
                 required
               />
               {errors.ingredients && <p className="text-sm text-red-500">{errors.ingredients}</p>}
@@ -190,6 +195,7 @@ export default function PostRecipe() {
                   value={recipeData.time}
                   onChange={handleInputChange}
                   className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.time ? 'border-red-500' : ''}`}
+                  placeholder="Ejemplo: 30"
                   required
                 />
                 {errors.time && <p className="text-sm text-red-500">{errors.time}</p>}
@@ -203,6 +209,7 @@ export default function PostRecipe() {
                   value={recipeData.servings}
                   onChange={handleInputChange}
                   className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.servings ? 'border-red-500' : ''}`}
+                  placeholder="Ejemplo: 4"
                   required
                 />
                 {errors.servings && <p className="text-sm text-red-500">{errors.servings}</p>}
@@ -223,3 +230,4 @@ export default function PostRecipe() {
     </div>
   );
 }
+

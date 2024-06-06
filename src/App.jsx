@@ -13,6 +13,7 @@ import RecipeAdmin from './pages/RecipeAdmin';
 import RecipeClient from './pages/RecipeClient'; 
 import Profile from './pages/Profile';
 import UploadedRecipes  from './pages/UploadedRecipes';
+import EditRecipe from './pages/EditRecipe';
 import Error404 from './pages/Error404';
 
 export default function App() {
@@ -31,6 +32,7 @@ export default function App() {
         <Route path="/postrecipe" element={<PostRecipe />} /> 
         <Route path="/profile" element={<Profile />} />
         <Route path="/uploadedrecipes" element={<UploadedRecipes />} />
+        <Route path="/editrecipe/:id" element={<EditRecipe />} />
         <Route path="/postrecipe" element={<PostRecipe />} />
         <Route path="*" element={<Error404 />} />
       </Routes>
