@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import AuthService from '../services/AuthService';
@@ -22,6 +22,7 @@ function Header() {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +32,18 @@ function Header() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const handleLogout = () => {
     authService.logout();
@@ -109,24 +122,27 @@ function Header() {
             )
           ))}
         </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4">
+        <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4 relative">
           {user ? (
             <div>
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="-m-1.5 p-1.5 focus:outline-none"
+                className="-m-1.5 p-1.5 focus:outline-none relative z-10"
               >
-                <FaUserCircle className="text-gray-900 text-xl mt-2" />
+                <FaUserCircle className="text-gray-900 text-3xl mt-2" />
               </button>
               {dropdownOpen && (
-                <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-10 right-0 mr-3">
-                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-20 right-0 top-14">
+                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     Mi Perfil
                   </Link>
-                  <Link to="/uploadedrecipes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <Link to="/uploadedrecipes" className="block px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     Recetas Subidas
                   </Link>
-                  <button onClick={handleLogout} className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <button onClick={() => {
+                    handleLogout();
+                    setDropdownOpen(false);
+                  }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     Cerrar Sesión
                   </button>
                 </div>
@@ -138,6 +154,7 @@ function Header() {
             </Link>
           )}
         </div>
+
       </nav>
       <Transition show={mobileMenuOpen} as={React.Fragment}>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
@@ -173,7 +190,7 @@ function Header() {
                           key={link.name}
                           href={link.href}
                           onClick={handlePostRecipeClick}
-                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           {link.name}
                         </a>
@@ -181,7 +198,7 @@ function Header() {
                         <button
                           key={link.name}
                           onClick={handleRecipesClick}
-                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           {link.name}
                         </button>
@@ -189,7 +206,7 @@ function Header() {
                         <Link
                           key={link.name}
                           to={link.href}
-                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           {link.name}
                         </Link>
@@ -200,19 +217,19 @@ function Header() {
                         <hr className='bg-gray-500/10 mb-6'></hr>
                         <Link
                           to="/profile"
-                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           Mi Perfil
                         </Link>
                         <Link
                           to="/uploadedrecipes"
-                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           Recetas Subidas
                         </Link>
                         <button
                           onClick={handleLogout}
-                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           Cerrar Sesión
                         </button>
@@ -223,7 +240,7 @@ function Header() {
                     <div className="py-6">
                       <Link
                         to="/login"
-                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                       >
                         Inicia Sesión
                       </Link>

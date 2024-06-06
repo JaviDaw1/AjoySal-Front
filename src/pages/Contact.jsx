@@ -48,7 +48,7 @@ export default function Contact() {
                     <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
                       <button
                         type="button"
-                        className="relative rounded-md text-gray-300 hover:text-white focus:outline-none focus:ring-2 focus:ring-white"
+                        className="relative rounded-md text-gray-300 hover:text-white transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-white"
                         onClick={() => setOpen(false)}
                       >
                         <span className="absolute -inset-2.5" />

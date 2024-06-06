@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import logoImage from '../images/logo.jpg';
-import { FaExclamationCircle } from 'react-icons/fa';
+import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const authService = new AuthService();
 
@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state;
@@ -65,6 +66,10 @@ export default function Login() {
     navigate('/signup');
   };
 
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
   return (
     <div className="flex min-h-full flex-1 flex-col justify-center py-12 sm:px-6 lg:px-8">
       <Link to={"/"}>
@@ -97,17 +102,20 @@ export default function Login() {
               <label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
                 Contraseña
               </label>
-              <div className="mt-2">
+              <div className="mt-2 relative">
                 <input
                   id="password"
                   name="password"
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   autoComplete="current-password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
                   className={`block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset placeholder:text-gray-400 focus:ring-2 focus:ring-inset sm:text-sm sm:leading-6 ${errors.password ? 'ring-red-500' : 'ring-gray-300'}`}
                 />
+                <div className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer" onClick={toggleShowPassword}>
+                  {showPassword ? <FaEyeSlash className="text-gray-400" /> : <FaEye className="text-gray-400" />}
+                </div>
                 {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
               </div>
             </div>
@@ -116,7 +124,7 @@ export default function Login() {
             <div className='mt-4'>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-blue-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm transition-all ease-in-out duration-200 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Iniciar Sesión
               </button>
@@ -133,7 +141,6 @@ export default function Login() {
           )}
         </div>
       </div>
-
     </div>
   );
 }

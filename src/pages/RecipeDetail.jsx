@@ -5,6 +5,7 @@ import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import AuthService from '../services/AuthService';
+import { FaExclamationCircle } from 'react-icons/fa';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -27,7 +28,6 @@ const RecipeDetail = () => {
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showOpinionForm, setShowOpinionForm] = useState(false);
-  const [showRatingForm, setShowRatingForm] = useState(false);
 
   useEffect(() => {
     const fetchRecipeAndDetails = async () => {
@@ -72,6 +72,7 @@ const RecipeDetail = () => {
       setOpinions(updatedOpinions);
       setNewOpinionTitle('');
       setNewOpinionContent('');
+      setShowOpinionForm(false); // Cerrar el formulario después de publicar la opinión
     } catch (error) {
       console.error('Error adding opinion:', error);
     }
@@ -94,6 +95,7 @@ const RecipeDetail = () => {
       await asessmentsService.addAsessments(ratingData);
       const updatedAverageRating = await asessmentsService.getAverageRatingByRecipeId(id);
       setAverageRating(updatedAverageRating);
+      setShowOpinionForm(false); // Cerrar el formulario después de publicar la valoración
     } catch (error) {
       console.error('Error adding rating:', error);
     }
@@ -112,11 +114,11 @@ const RecipeDetail = () => {
   const renderStars = (rating) => {
     const roundedRating = Math.round(rating);
     return (
-      <div className="flex">
+      <div className="flex space-x-1">
         {[...Array(5)].map((_, index) => (
           <svg
             key={index}
-            className={`w-6 h-6 ${index < roundedRating ? 'text-yellow-500' : 'text-gray-300'}`}
+            className={`w-6 h-6 transition-all duration-200 ease-in-out ${index < roundedRating ? 'text-yellow-500' : 'text-gray-300'}`}
             fill="currentColor"
             viewBox="0 0 20 20"
             onClick={() => setNewRating(index + 1)}
@@ -151,13 +153,8 @@ const RecipeDetail = () => {
 
   const handleToggleOpinionForm = () => {
     setShowOpinionForm(!showOpinionForm);
-    setShowRatingForm(false);
   };
 
-  const handleToggleRatingForm = () => {
-    setShowRatingForm(!showRatingForm);
-    setShowOpinionForm(false);
-  };
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -189,7 +186,7 @@ const RecipeDetail = () => {
                 <p className="mb-4">{recipe.description || "Sin descripción"}</p>
                 <p className="mb-4">Nacionalidad {recipe.nationality}</p>
                 <p className="mb-4">Dificultad {recipe.difficulty}</p>
-                <p className="mb-4"><strong>Tiempo de cocinado:</strong> {recipe.time} minutos</p>
+                <p className="mb-4">Tiempo de cocinado: {recipe.time} minutos</p>
                 <p className="mb-4">Plato para {recipe.servings} personas</p>
               </div>
               <div className="md:w-1/2 flex justify-end flex-grow">
@@ -217,9 +214,6 @@ const RecipeDetail = () => {
                 <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
                   <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
                   <p className='text-lg'>No hay reseñas todavía.</p>
-                  {errorMessage && (
-                    <div className="text-red-500">{errorMessage}</div>
-                  )}
                 </div>
               )}
 
@@ -232,68 +226,61 @@ const RecipeDetail = () => {
                       <p>{opinion.content}</p>
                     </div>
                   ))}
-                  {errorMessage && (
-                    <div className="text-red-500">{errorMessage}</div>
-                  )}
                 </div>
               )}
               <div className="flex justify-between items-center mt-6">
                 <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  className="bg-blue-500 hover:bg-blue-500 transition-all duration-200 ease-in-out text-white px-4 py-2 rounded-md"
                   onClick={handleToggleOpinionForm}
                 >
                   Publicar reseña
-                </button>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                  onClick={handleToggleRatingForm}
-                >
-                  Valorar receta
                 </button>
               </div>
             </div>
             {showOpinionForm && (
               <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
                 <h2 className="mb-4 text-2xl font-semibold">Añadir Opinión</h2>
+                <div className='mb-6'>
+                  {renderStars(newRating)}
+                  <div className='flex flex-col items-center'>
+                    <button
+                      className="bg-blue-500 hover:bg-blue-500 transition-all duration-200 ease-in-out text-white px-4 py-2 rounded-md mt-4"
+                      onClick={handleAddRating}
+                    >
+                      Enviar Valoración
+                    </button>
+                  </div>
+                </div>
+                <div>
+                  <input
+                    type="text"
+                    className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
+                    placeholder="Título"
+                    value={newOpinionTitle}
+                    onChange={(e) => setNewOpinionTitle(e.target.value)}
+                  />
+                  <textarea
+                    className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
+                    rows="4"
+                    placeholder="Contenido"
+                    value={newOpinionContent}
+                    onChange={(e) => setNewOpinionContent(e.target.value)}
+                  ></textarea>
+                  <div className='flex flex-col items-center'>
+                    <button
+                      className="bg-blue-600 hover:bg-blue-500 transition-all duration-200 ease-in-out text-white px-4 py-2 rounded-md"
+                      onClick={handleAddOpinion}
+                    >
+                      Publicar Opinión
+                    </button>
+                  </div>
+                </div>
                 {errorMessage && (
-                  <div className="text-red-500">{errorMessage}</div>
+                  <div className="mt-4 flex items-center justify-center bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md">
+                    <FaExclamationCircle className="mr-2" />
+                    {errorMessage}
+                  </div>
                 )}
-                <input
-                  type="text"
-                  className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
-                  placeholder="Título"
-                  value={newOpinionTitle}
-                  onChange={(e) => setNewOpinionTitle(e.target.value)}
-                />
-                <textarea
-                  className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
-                  rows="4"
-                  placeholder="Contenido"
-                  value={newOpinionContent}
-                  onChange={(e) => setNewOpinionContent(e.target.value)}
-                ></textarea>
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                  onClick={handleAddOpinion}
-                >
-                  Publicar Opinión
-                </button>
-              </div>
-            )}
-            {showRatingForm && (
-              <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
-                <h2 className="mb-4 text-2xl font-semibold">Valorar Receta</h2>
-                {errorMessage && (
-                  <div className="text-red-500">{errorMessage}</div>
-                )}
-                <p>Selecciona tu valoración:</p>
-                {renderStars(newRating)}
-                <button
-                  className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                  onClick={handleAddRating}
-                >
-                  Enviar Valoración
-                </button>
               </div>
             )}
           </div>

@@ -52,13 +52,13 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4">Explorar</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to={user && user.user.role === "ADMIN" ? "/recipeadmin" : "/recipeclient"} className="hover:text-yellow-400 hover:underline">Recetas</Link>
+                    <Link to={user && user.user.role === "ADMIN" ? "/recipeadmin" : "/recipeclient"} className="hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline">Recetas</Link>
                   </li>
                   <li>
-                    <Link to="/postrecipe" onClick={handlePostRecipeClick} className="hover:text-yellow-400 hover:underline">Publicar Receta</Link>
+                    <Link to="/postrecipe" onClick={handlePostRecipeClick} className="hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline">Publicar Receta</Link>
                   </li>
                   <li>
-                    <Link to="/contact" className="hover:text-yellow-400 hover:underline">Contacto o dudas</Link>
+                    <Link to="/contact" className="hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline">Contacto o dudas</Link>
                   </li>
                 </ul>
               </div>
@@ -66,10 +66,10 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4">Términos</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/aboutus" className="hover:text-yellow-400 hover:underline">Términos</Link>
+                    <Link to="/aboutus" className="hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline">Términos</Link>
                   </li>
                   <li>
-                    <Link to="/login" className="hover:text-yellow-400 hover:underline">Iniciar Sesión</Link>
+                    <Link to="/login" className="hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline">Iniciar Sesión</Link>
                   </li>
                 </ul>
               </div>
@@ -80,16 +80,16 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-base">Síguenos en:</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
-            <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Twitter">
+            <Link to="#" className="text-gray-300 hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline lg:text-xl" aria-label="Twitter">
               <FaTwitter />
             </Link>
-            <Link to="" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Instagram">
+            <Link to="" className="text-gray-300 hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline lg:text-xl" aria-label="Instagram">
               <FaInstagram />
             </Link>
-            <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="Facebook">
+            <Link to="#" className="text-gray-300 hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline lg:text-xl" aria-label="Facebook">
               <FaFacebook />
             </Link>
-            <Link to="#" className="text-gray-300 hover:text-yellow-400 hover:underline lg:text-xl" aria-label="GitHub">
+            <Link to="#" className="text-gray-300 hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline lg:text-xl" aria-label="GitHub">
               <FaGithub />
             </Link>
           </div>
