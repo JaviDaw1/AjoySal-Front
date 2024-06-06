@@ -8,15 +8,7 @@ import Loading from '../components/Loading';
 
 const authService = new AuthService();
 
-const adminLinks = [
-  { name: 'Inicio', href: '/' },
-  { name: 'Recetas', href: '/recipeadmin' },
-  { name: 'Subir Receta', href: '/postrecipe' },
-  { name: 'Conócenos', href: '/aboutus' },
-  { name: 'Contacto', href: '/contact' },
-];
-
-const clientLinks = [
+const links = [
   { name: 'Inicio', href: '/' },
   { name: 'Recetas', href: '/recipeclient' },
   { name: 'Subir Receta', href: '/postrecipe' },
@@ -25,7 +17,6 @@ const clientLinks = [
 ];
 
 function Header() {
-  const [isAdmin, setIsAdmin] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -34,20 +25,17 @@ function Header() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const adminStatus = await AuthService.isUserAdmin();
-      setIsAdmin(adminStatus);
-
       const userInfo = authService.getUserInfo();
       setUser(userInfo);
     };
     fetchData();
   }, []);
 
-  const links = isAdmin ? adminLinks : clientLinks;
 
   const handleLogout = () => {
     authService.logout();
     setUser(null);
+    navigate('/', { replace: true });
   };
 
   const handlePostRecipeClick = (e) => {
@@ -60,6 +48,14 @@ function Header() {
       }, 2000);
     } else {
       navigate('/postrecipe');
+    }
+  };
+
+  const handleRecipesClick = () => {
+    if (user && user.user.role === "ADMIN") {
+      navigate('/recipeadmin');
+    } else {
+      navigate('/recipeclient');
     }
   };
 
@@ -94,6 +90,14 @@ function Header() {
               >
                 {link.name}
               </a>
+            ) : link.name === 'Recetas' ? (
+              <button
+                key={link.name}
+                onClick={handleRecipesClick}
+                className="text-base font-semibold leading-6 text-gray-900"
+              >
+                {link.name}
+              </button>
             ) : (
               <Link
                 key={link.name}
@@ -173,6 +177,14 @@ function Header() {
                         >
                           {link.name}
                         </a>
+                      ) : link.name === 'Recetas' ? (
+                        <button
+                          key={link.name}
+                          onClick={handleRecipesClick}
+                          className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        >
+                          {link.name}
+                        </button>
                       ) : (
                         <Link
                           key={link.name}
@@ -194,38 +206,38 @@ function Header() {
                         </Link>
                         <Link
                           to="/uploadedrecipes"
-                          className="-mx-3 block rounded-lg px-3 py-2.5 text                          -base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            Recetas Subidas
-                          </Link>
-                          <button
-                            onClick={handleLogout}
-                            className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
-                          >
-                            Cerrar Sesión
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                    {!user && (
-                      <div className="py-6">
-                        <Link
-                          to="/login"
                           className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
                         >
-                          Inicia Sesión
+                          Recetas Subidas
                         </Link>
+                        <button
+                          onClick={handleLogout}
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                        >
+                          Cerrar Sesión
+                        </button>
                       </div>
                     )}
                   </div>
+                  {!user && (
+                    <div className="py-6">
+                      <Link
+                        to="/login"
+                        className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50"
+                      >
+                        Inicia Sesión
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              </Dialog.Panel>
-            </Transition.Child>
-          </Dialog>
-        </Transition>
-        {loading && <Loading />}
-      </header>
-    );
-  }
-  
-  export default Header;
+              </div>
+            </Dialog.Panel>
+          </Transition.Child>
+        </Dialog>
+      </Transition>
+      {loading && <Loading />}
+    </header>
+  );
+}
+
+export default Header;

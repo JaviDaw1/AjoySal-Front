@@ -26,7 +26,8 @@ const RecipeDetail = () => {
   const [newRating, setNewRating] = useState(0);
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
-
+  const [showOpinionForm, setShowOpinionForm] = useState(false);
+  const [showRatingForm, setShowRatingForm] = useState(false);
 
   useEffect(() => {
     const fetchRecipeAndDetails = async () => {
@@ -57,7 +58,7 @@ const RecipeDetail = () => {
         setErrorMessage('No puedes publicar una opinión sobre tu propia receta.');
         setTimeout(() => {
           setErrorMessage(null);
-        }, 5000); // 5 segundos
+        }, 5000);
         return;
       }
       const opinionData = {
@@ -82,7 +83,7 @@ const RecipeDetail = () => {
         setErrorMessage('No puedes valorar tu propia receta.');
         setTimeout(() => {
           setErrorMessage(null);
-        }, 5000); // 5 segundos
+        }, 5000);
         return;
       }
       const ratingData = {
@@ -98,6 +99,15 @@ const RecipeDetail = () => {
     }
   };
 
+  const handleToggleFavorite = async () => {
+    try {
+      const updatedRecipe = { ...recipe, favorites: !recipe.favorites };
+      await recipeService.updateRecipe(id, updatedRecipe);
+      setRecipe(updatedRecipe);
+    } catch (error) {
+      console.error('Error toggling favorite:', error);
+    }
+  };
 
   const renderStars = (rating) => {
     const roundedRating = Math.round(rating);
@@ -132,13 +142,22 @@ const RecipeDetail = () => {
   const renderInstructions = (instructions) => {
     return (
       <ol className="list-decimal pl-5">
-        {instructions.split(/\d+\.\s/).map((instruction, index) => 
+        {instructions.split(/\d+\.\s/).map((instruction, index) =>
           instruction.trim() && <li className='mb-2 text-lg' key={index}>{instruction.trim()}</li>
         )}
       </ol>
     );
   };
 
+  const handleToggleOpinionForm = () => {
+    setShowOpinionForm(!showOpinionForm);
+    setShowRatingForm(false);
+  };
+
+  const handleToggleRatingForm = () => {
+    setShowRatingForm(!showRatingForm);
+    setShowOpinionForm(false);
+  };
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
@@ -146,27 +165,35 @@ const RecipeDetail = () => {
         {recipe && (
           <div>
             <div className="flex flex-col md:flex-row mb-6">
-              <div className="md:w-1/2 md:pr-8 flex flex-col justify-start">
-                <h1 className="text-4xl font-bold text-gray-800 flex items-center">
-                  {recipe.name}
-                  <span className="ml-4 flex items-center">
-                    {renderStars(averageRating)}
-                    <span className="text-base text-gray-500 ml-1">
-                      ({averageRating.toFixed(1)})
-                    </span>
-                    <span className="text-sm text-gray-500 ml-4">
-                      {ratingCount} valoraciones
-                    </span>
+              <div>
+                <div className='flex flex-grow  items-center'>
+                  <h1 className="text-4xl font-bold text-gray-800 mb-4">{recipe.name}</h1>
+                  <svg
+                    onClick={handleToggleFavorite}
+                    className={`w-6 h-6 mb-4 cursor-pointer transition-all duration-200 ease-in-out ${recipe.favorites ? 'text-red-500' : 'text-gray-400'}`}
+                    fill="currentColor"
+                    viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
+                </div>
+                <div className="flex items-center mb-4">
+                  {renderStars(averageRating)}
+                  <span className="text-base text-gray-500 ml-1">
+                    ({averageRating.toFixed(1)})
                   </span>
-                </h1>
-                <hr className="mb-6" />
+                  <span className="text-sm text-gray-500 ml-4">
+                    {ratingCount} valoraciones
+                  </span>
+                </div>
+                <hr className="mb-4" />
                 <p className="mb-4">{recipe.description || "Sin descripción"}</p>
-                <p className="mb-4"><strong>Nacionalidad:</strong> {recipe.nationality}</p>
-                <p className="mb-4"><strong>Dificultad:</strong> {recipe.difficulty}</p>
-                <p className="mb-4"><strong>Favoritos:</strong> {recipe.favorites ? 'Sí' : 'No'}</p>
+                <p className="mb-4">Nacionalidad {recipe.nationality}</p>
+                <p className="mb-4">Dificultad {recipe.difficulty}</p>
+                <p className="mb-4"><strong>Tiempo de cocinado:</strong> {recipe.time} minutos</p>
+                <p className="mb-4">Plato para {recipe.servings} personas</p>
               </div>
-              <div className="md:w-1/2 flex justify-end">
-                <img src={recipe.image} alt={recipe.name} className="w-full h-auto max-w-sm rounded-lg shadow-md" />
+              <div className="md:w-1/2 flex justify-end flex-grow">
+                <img src={recipe.image} alt={recipe.name} className="w-full md:w-auto h-auto sm:mt-4 max-w-full md:max-w-sm rounded-lg shadow-md" />
               </div>
             </div>
             <hr className="mb-6" />
@@ -185,58 +212,90 @@ const RecipeDetail = () => {
               <p className="text-gray-700"><strong>Publicada el:</strong> {new Date(recipe.date).toLocaleDateString()}</p>
               <p className="text-gray-700"><strong>Autor:</strong> {recipe.user.username}</p>
             </div>
-            <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
-              <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
-              {opinions.map((opinion, index) => (
-                <div key={index} className="mb-4">
-                  <p className="text-lg font-bold">{opinion.title} - {opinion.user.username}</p>
-                  <p>{opinion.content}</p>
+            <div>
+              {opinions.length === 0 && (
+                <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                  <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
+                  <p className='text-lg'>No hay reseñas todavía.</p>
+                  {errorMessage && (
+                    <div className="text-red-500">{errorMessage}</div>
+                  )}
                 </div>
-              ))}
-              {errorMessage && (
-                <div className="text-red-500">{errorMessage}</div>
               )}
-            </div>
-            <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
-              <h2 className="mb-4 text-2xl font-semibold">Añadir Opinión</h2>
-              {errorMessage && (
-                <div className="text-red-500">{errorMessage}</div>
+
+              {opinions.length > 0 && (
+                <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
+                  <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
+                  {opinions.map((opinion, index) => (
+                    <div key={index} className="mb-4">
+                      <p className="text-lg font-bold">{opinion.title} - {opinion.user.username}</p>
+                      <p>{opinion.content}</p>
+                    </div>
+                  ))}
+                  {errorMessage && (
+                    <div className="text-red-500">{errorMessage}</div>
+                  )}
+                </div>
               )}
-              <input
-                type="text"
-                className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
-                placeholder="Título"
-                value={newOpinionTitle}
-                onChange={(e) => setNewOpinionTitle(e.target.value)}
-              />
-              <textarea
-                className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
-                rows="4"
-                placeholder="Contenido"
-                value={newOpinionContent}
-                onChange={(e) => setNewOpinionContent(e.target.value)}
-              ></textarea>
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md"
-                onClick={handleAddOpinion}
-              >
-                Publicar Opinión
-              </button>
+              <div className="flex justify-between items-center mt-6">
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  onClick={handleToggleOpinionForm}
+                >
+                  Publicar reseña
+                </button>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  onClick={handleToggleRatingForm}
+                >
+                  Valorar receta
+                </button>
+              </div>
             </div>
-            <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
-              <h2 className="mb-4 text-2xl font-semibold">Valorar Receta</h2>
-              {errorMessage && (
-                <div className="text-red-500">{errorMessage}</div>
-              )}
-              <p>Selecciona tu valoración:</p>
-              {renderStars(newRating)}
-              <button
-                className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
-                onClick={handleAddRating}
-              >
-                Enviar Valoración
-              </button>
-            </div>
+            {showOpinionForm && (
+              <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
+                <h2 className="mb-4 text-2xl font-semibold">Añadir Opinión</h2>
+                {errorMessage && (
+                  <div className="text-red-500">{errorMessage}</div>
+                )}
+                <input
+                  type="text"
+                  className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
+                  placeholder="Título"
+                  value={newOpinionTitle}
+                  onChange={(e) => setNewOpinionTitle(e.target.value)}
+                />
+                <textarea
+                  className="border border-gray-300 rounded-md px-2 py-1 w-full mb-2"
+                  rows="4"
+                  placeholder="Contenido"
+                  value={newOpinionContent}
+                  onChange={(e) => setNewOpinionContent(e.target.value)}
+                ></textarea>
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md"
+                  onClick={handleAddOpinion}
+                >
+                  Publicar Opinión
+                </button>
+              </div>
+            )}
+            {showRatingForm && (
+              <div className="mt-6 border border-gray-300 rounded-lg p-4 bg-gray-50">
+                <h2 className="mb-4 text-2xl font-semibold">Valorar Receta</h2>
+                {errorMessage && (
+                  <div className="text-red-500">{errorMessage}</div>
+                )}
+                <p>Selecciona tu valoración:</p>
+                {renderStars(newRating)}
+                <button
+                  className="bg-blue-500 text-white px-4 py-2 rounded-md mt-2"
+                  onClick={handleAddRating}
+                >
+                  Enviar Valoración
+                </button>
+              </div>
+            )}
           </div>
         )}
       </div>

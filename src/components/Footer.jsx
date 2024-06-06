@@ -20,7 +20,7 @@ const Footer = () => {
     };
     fetchData();
   }, []);
-  
+
   const handlePostRecipeClick = (e) => {
     e.preventDefault();
     if (!user) {
@@ -52,7 +52,7 @@ const Footer = () => {
                 <h3 className="text-lg font-bold mb-4">Explorar</h3>
                 <ul className="space-y-2">
                   <li>
-                    <Link to="/recipeclient" className="hover:text-yellow-400 hover:underline">Recetas</Link>
+                    <Link to={user && user.user.role === "ADMIN" ? "/recipeadmin" : "/recipeclient"} className="hover:text-yellow-400 hover:underline">Recetas</Link>
                   </li>
                   <li>
                     <Link to="/postrecipe" onClick={handlePostRecipeClick} className="hover:text-yellow-400 hover:underline">Publicar Receta</Link>

@@ -37,64 +37,34 @@ export default class AuthService {
   logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-
   }
 
   getToken() {
     return localStorage.getItem("token");
   }
 
-getUserInfo() {
+  getUserInfo() {
     const userInfo = localStorage.getItem("user");
     return userInfo ? JSON.parse(userInfo) : null;
-}
-
-async getUploadedRecipes(userId) {
-  try {
-    const response = await fetch(`${this.baseUrl}recipe/users/${userId}`, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${this.getToken()}`,
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error('Error fetching uploaded recipes');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching uploaded recipes:', error);
-    throw new Error('Error fetching uploaded recipes');
   }
-}
 
-
-  // Función para verificar si el usuario es admin
-  static async isUserAdmin() {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      return false; // No hay token, el usuario no está autenticado
-    }
-
+  async getUploadedRecipes(userId) {
     try {
-      const response = await fetch("http://localhost:8080/api/auth/isAdmin", {
-        method: "GET",
+      const response = await fetch(`${this.baseUrl}recipe/users/${userId}`, {
         headers: {
-          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
+          Authorization: `Bearer ${this.getToken()}`,
         },
       });
 
       if (!response.ok) {
-        return false; // La solicitud no fue exitosa, el usuario no es admin
+        throw new Error("Error fetching uploaded recipes");
       }
 
-      const data = await response.json();
-      return data.isAdmin; // Suponiendo que el backend devuelve un objeto con la propiedad isAdmin
+      return await response.json();
     } catch (error) {
-      console.error("Error fetching isAdmin status:", error);
-      return false; // Error al hacer la solicitud, el usuario no es admin
+      console.error("Error fetching uploaded recipes:", error);
+      throw new Error("Error fetching uploaded recipes");
     }
   }
 }
