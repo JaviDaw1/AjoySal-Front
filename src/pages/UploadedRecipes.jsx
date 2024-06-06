@@ -1,4 +1,4 @@
-// eslint-disable-next-line no-unused-varsimport React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import RecipeService from '../services/RecipeService';
@@ -50,7 +50,7 @@ const UploadedRecipes = () => {
     <div className="overflow-x-hidden relative">
       <Header />
       {deleteSuccess && (
-        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 bg-green-200 bg-opacity-50 px-6 py-3 rounded-md shadow-md">
+        <div className="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/3 bg-green-200 bg-opacity-75 px-6 py-3 rounded-md shadow-md">
           <p className="text-green-800 font-bold">OK! La receta se ha eliminado correctamente.</p>
         </div>
       )}
