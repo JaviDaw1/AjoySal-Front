@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import Pagination from '../components/Pagination'
 import Loading from '../components/Loading';
 import RecipeService from '../services/RecipeService';
 import AuthService from '../services/AuthService';
@@ -67,6 +68,9 @@ const RecipeClient = () => {
                         </div>
                     </Link>
                 ))}
+            </div>
+            <div>
+                <Pagination/>
             </div>
             <Footer />
             {loading && <Loading />}

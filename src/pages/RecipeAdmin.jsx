@@ -4,18 +4,13 @@ import Header from '../components/Header.jsx';
 import RecipeService from '../services/RecipeService.js';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
-import { DataTable } from 'primereact/datatable';
-import { Dialog } from 'primereact/dialog';
-import { InputTextarea } from 'primereact/inputtextarea';
-import { InputText } from 'primereact/inputtext';
-import { Column } from 'primereact/column';
 import { Button } from 'primereact/button';
 import { confirmDialog } from 'primereact/confirmdialog';
-import { Rating } from 'primereact/rating';
 import 'primeflex/primeflex.css';
 import 'primereact/resources/themes/saga-blue/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import TableBase from '../components/TableBase.jsx';
 
 export default class Recipes extends Component {
     constructor(props) {
@@ -146,12 +141,14 @@ export default class Recipes extends Component {
     }
 
     render() {
-        const { recipes, selectedRecipe, opinionTitle, opinionContent, asessmentRating } = this.state;
+        const { recipes } = this.state;
+        console.log(recipes)
         return (
             <div>
                 <Header />
                 <div className="p-grid p-justify-center">
-                    <div className="p-col-8">
+                    <TableBase recipes={recipes}/>
+                    {/* <div className="p-col-8">
                         <DataTable value={recipes}>
                             <Column field="id" header="ID"></Column>
                             <Column field="name" header="Name"></Column>
@@ -197,8 +194,6 @@ export default class Recipes extends Component {
                                     className="p-button-secondary"
                                     onClick={() => this.setState({ selectedRecipe: null })}
                                 />
-
-                                {/* Opinion Form */}
                                 <div>
                                     <h3>Submit an Opinion</h3>
                                     <div className="mb-4">
@@ -223,8 +218,6 @@ export default class Recipes extends Component {
                                     </div>
                                     <Button label="Submit Opinion" className="p-button-success" onClick={() => this.setState({ displayOpinionDialog: true })} />
                                 </div>
-
-                                {/* Assessment Form */}
                                 <div>
                                     <h3>Submit a Rating</h3>
                                     <div className="mb-4">
@@ -250,8 +243,6 @@ export default class Recipes extends Component {
                                         </div>
                                     </div>
                                 </Dialog>
-
-                                {/* Rating Dialog */}
                                 <Dialog visible={this.state.displayRatingDialog} style={{ width: '450px' }} header="Submit Rating" modal footer={this.ratingDialogFooter} onHide={() => this.setState({ displayRatingDialog: false })}>
                                     <div className="p-grid p-fluid">
                                         <div className="p-field p-col-12 p-md-12">
@@ -262,7 +253,7 @@ export default class Recipes extends Component {
                                 </Dialog>
                             </div>
                         )}
-                    </div>
+                    </div> */}
                 </div>
             </div>
         );

@@ -62,4 +62,12 @@ export default class RecipeService {
     };
     return axios.delete(`${this.baseUrl}recipe/${id}`, { headers });
   }
+
+  countRecipes() {
+    const token = authService.getToken();
+    const headers = {
+      'Authorization': `Bearer ${token}`,
+    };
+    return axios.get(`${this.baseUrl}recipe/count`, { headers }).then((res) => res.data);
+  }
 }
