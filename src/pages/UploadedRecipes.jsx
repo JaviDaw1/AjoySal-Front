@@ -20,7 +20,7 @@ const UploadedRecipes = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchUploadedRecipes = async () => { 
+    const fetchUploadedRecipes = async () => {
       try {
         const userInfo = authService.getUserInfo();
         if (userInfo && userInfo.user.id) {
@@ -80,9 +80,6 @@ const UploadedRecipes = () => {
             <p className="text-green-800 font-bold">OK! La receta se ha eliminado correctamente.</p>
           </div>
         )}
-        <div className='flex flex-col items-center text-4xl my-6'>
-          <h1 className='font-semibold'>Tus recetas</h1>
-        </div>
         <div className={`flex flex-wrap justify-center ${showModal ? 'opacity-50 pointer-events-none' : ''}`}>
           {recipes.length > 0 ? (
             recipes.map((recipe, index) => (
@@ -92,7 +89,7 @@ const UploadedRecipes = () => {
                     <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />
                     <div className="p-4">
                       <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>
-                      <Divider className='my-4'/>
+                      <Divider className='my-4' />
                       <p className="text-sm text-gray-700 mb-2">{recipe.description}</p>
                       <p className="text-sm text-gray-700"><strong>Autor: </strong> {recipe.user.username}</p>
                     </div>
@@ -109,8 +106,8 @@ const UploadedRecipes = () => {
               </div>
             ))
           ) : (
-            <div className="flex flex-col items-center justify-center w-full h-64 text-xl text-gray-600 mb-20">
-              <p className="text-2xl">No has subido ninguna receta.</p>
+            <div className="flex flex-col items-center justify-center w-full h-64 text-xl text-gray-600">
+              <p className="text-2xl">No has subido ninguna receta aún.</p>
             </div>
           )}
         </div>
