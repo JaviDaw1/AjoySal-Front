@@ -19,10 +19,12 @@ export default function Fundators() {
     <div className="bg-white py-12 sm:py-16 flex justify-center items-center">
       <div className="mx-auto grid max-w-7xl gap-x-8 gap-y-10 px-6 lg:px-4 xl:grid-cols-3">
         <div className="max-w-2xl">
-          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">Conoce a nuestros </h2>
+          <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">AjoySal - Fundadores</h2>
           <p className="mt-6 text-lg leading-4 text-gray-600">
-            Libero fames augue nisl porttitor nisi, quis. Id ac elit odio vitae elementum enim vitae ullamcorper
-            suspendisse.
+            Ubicada entre las mejores páginas webs de recetas.Tienes ganas de probar algo
+            <span className="block mt-4">
+            distinto, rico, exótico...Con esta aplicación no tendrás problemas con eso.
+            </span>
           </p>
         </div>
         <ul role="list" className="grid gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-y-8 xl:col-span-2">

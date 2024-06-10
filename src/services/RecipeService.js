@@ -1,4 +1,3 @@
-// RecipeService.js
 import axios from "axios";
 import AuthService from "./AuthService";
 
@@ -33,7 +32,7 @@ export default class RecipeService {
       throw new Error('Error fetching recipes');
     }
     return response.json();
-  }  
+  }
 
   postRecipe(recipeData) {
     const token = authService.getToken();
@@ -69,5 +68,29 @@ export default class RecipeService {
       'Authorization': `Bearer ${token}`,
     };
     return axios.get(`${this.baseUrl}recipe/count`, { headers }).then((res) => res.data);
+  }
+
+  getRecipesByName(name) {
+    const token = authService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.get(`${this.baseUrl}recipe/name/${name}`, { headers }).then((res) => res.data);
+  }
+
+  getRecipesByDifficulty(difficulty) {
+    const token = authService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.get(`${this.baseUrl}recipe/difficulty/${difficulty}`, { headers }).then((res) => res.data);
+  }
+
+  getRecipesByNationality(nationality) {
+    const token = authService.getToken();
+    const headers = {
+      Authorization: `Bearer ${token}`,
+    };
+    return axios.get(`${this.baseUrl}recipe/nationality/${nationality}`, { headers }).then((res) => res.data);
   }
 }
