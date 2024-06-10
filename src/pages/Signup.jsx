@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
+import Divider from '../components/Divider'
 import logoImage from '../images/logo.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
@@ -177,7 +178,7 @@ export default function Signup() {
               </div>
               {errors.password && <p className="mt-2 text-sm text-red-600">{errors.password}</p>}
             </div>
-            <hr />
+            <Divider />
             <div>
               <button
                 type="submit"

@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import Slider from 'react-slick';
 import cremaMaiz from '../images/crema_maiz.jpg';
@@ -12,7 +13,7 @@ export default function Carousel() {
     dots: false,
     infinite: true,
     autoplay: true,
-    autoplaySpeed: 2000, // Ajustar la velocidad de desplazamiento aquí
+    autoplaySpeed: 2000,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,

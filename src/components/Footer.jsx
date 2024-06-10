@@ -5,6 +5,7 @@ import { FaTwitter, FaInstagram, FaFacebook, FaGithub } from 'react-icons/fa';
 import logo from '../images/logo.jpg';
 import AuthService from '../services/AuthService';
 import Loading from './Loading';
+import Divider from './Divider';
 
 const authService = new AuthService()
 
@@ -76,9 +77,9 @@ const Footer = () => {
             </div>
           </nav>
         </div>
-        <hr className="my-6 border-gray-600" />
+        <Divider className="my-4"/>
         <div className="flex flex-col md:flex-row justify-between items-center">
-          <p className="text-base">Síguenos en:</p>
+          <p className="text-lg">Síguenos en:</p>
           <div className="flex space-x-4 mt-4 md:mt-0">
             <Link to="#" className="text-gray-300 hover:text-yellow-400 transition-all ease-in-out duration-200 hover:underline lg:text-xl" aria-label="Twitter">
               <FaTwitter />

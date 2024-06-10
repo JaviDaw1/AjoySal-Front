@@ -3,8 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
 import AuthService from '../services/AuthService';
 import logoImage from '../images/logo.jpg';
-import { FaUserCircle } from 'react-icons/fa';
+import { FaUserCircle, FaUser, FaUpload, FaHeart } from 'react-icons/fa';
 import Loading from '../components/Loading';
+import Divider from './Divider';
 
 const authService = new AuthService();
 
@@ -133,16 +134,19 @@ function Header() {
               </button>
               {dropdownOpen && (
                 <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-20 right-0 top-14">
-                  <Link to="/profile" className="block px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
-                    Mi Perfil
+                  <Link to="/profile" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                    <FaUser className="mr-2" /> Mi Perfil
                   </Link>
-                  <Link to="/uploadedrecipes" className="block px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
-                    Recetas Subidas
+                  <Link to="/uploadedrecipes" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                    <FaUpload className="mr-2" /> Recetas Subidas
+                  </Link>
+                  <Link to="/favoritesrecipes" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                    <FaHeart className="mr-2" /> Recetas Favoritas
                   </Link>
                   <button onClick={() => {
                     handleLogout();
                     setDropdownOpen(false);
-                  }} className="block w-full text-left px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  }} className="flex flex-grow w-full text-left px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     Cerrar Sesión
                   </button>
                 </div>
@@ -213,8 +217,8 @@ function Header() {
                       )
                     ))}
                     {user && (
-                      <div className="py-6">
-                        <hr className='bg-gray-500/10 mb-6'></hr>
+                      <div>
+                        <Divider className='my-4'/>
                         <Link
                           to="/profile"
                           className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
@@ -226,6 +230,12 @@ function Header() {
                           className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           Recetas Subidas
+                        </Link>
+                        <Link
+                          to="/favoritesrecipes"
+                          className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
+                        >
+                          Recetas Favoritas
                         </Link>
                         <button
                           onClick={handleLogout}

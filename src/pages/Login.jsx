@@ -4,6 +4,7 @@ import { useNavigate, useLocation, Link } from 'react-router-dom';
 import AuthService from '../services/AuthService';
 import logoImage from '../images/logo.jpg';
 import { FaExclamationCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
+import Divider from '../components/Divider';
 
 const authService = new AuthService();
 
@@ -120,7 +121,7 @@ export default function Login() {
               </div>
             </div>
             {errors.authError && <p className="mt-2 text-sm text-red-600">{errors.authError}</p>}
-            <hr></hr>
+            <Divider />
             <div className='mt-4'>
               <button
                 type="submit"

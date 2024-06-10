@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
+import LikesService from '../services/LikesService';
 import AuthService from '../services/AuthService';
 import { FaExclamationCircle } from 'react-icons/fa';
 import Header from '../components/Header';
@@ -13,6 +14,7 @@ const opinionsService = new OpinionsService();
 const asessmentsService = new AsessmentsService();
 const recipeService = new RecipeService();
 const authService = new AuthService();
+const likesService = new LikesService();
 
 const RecipeDetail = () => {
   const { id } = useParams();
@@ -28,6 +30,7 @@ const RecipeDetail = () => {
   const [user, setUser] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const [showOpinionForm, setShowOpinionForm] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
     const fetchRecipeAndDetails = async () => {
@@ -45,6 +48,11 @@ const RecipeDetail = () => {
         setAverageRating(averageRatingData);
         setRatingCount(ratingCountData);
         setOpinionCount(opinionCountData);
+
+        if (userData && userData.user && userData.user.id) {
+          const isLikedByUser = await likesService.isRecipeLikedByUser(id, userData.user.id);
+          setIsLiked(isLikedByUser);
+        }
       } catch (error) {
         console.error('Error fetching recipe and details:', error);
       }
@@ -72,7 +80,7 @@ const RecipeDetail = () => {
       setOpinions(updatedOpinions);
       setNewOpinionTitle('');
       setNewOpinionContent('');
-      setShowOpinionForm(false); // Cerrar el formulario después de publicar la opinión
+      setShowOpinionForm(false);
     } catch (error) {
       console.error('Error adding opinion:', error);
     }
@@ -95,7 +103,7 @@ const RecipeDetail = () => {
       await asessmentsService.addAsessments(ratingData);
       const updatedAverageRating = await asessmentsService.getAverageRatingByRecipeId(id);
       setAverageRating(updatedAverageRating);
-      setShowOpinionForm(false); // Cerrar el formulario después de publicar la valoración
+      setShowOpinionForm(false);
     } catch (error) {
       console.error('Error adding rating:', error);
     }
@@ -103,9 +111,12 @@ const RecipeDetail = () => {
 
   const handleToggleFavorite = async () => {
     try {
-      const updatedRecipe = { ...recipe, favorites: !recipe.favorites };
-      await recipeService.updateRecipe(id, updatedRecipe);
-      setRecipe(updatedRecipe);
+      if (isLiked) {
+        await likesService.unlikeRecipe(id, user.user.id);
+      } else {
+        await likesService.likeRecipe(id, user.user.id);
+      }
+      setIsLiked(!isLiked);
     } catch (error) {
       console.error('Error toggling favorite:', error);
     }
@@ -167,7 +178,7 @@ const RecipeDetail = () => {
                   <h1 className="text-4xl font-bold text-gray-800 mb-4">{recipe.name}</h1>
                   <svg
                     onClick={handleToggleFavorite}
-                    className={`w-6 h-6 mb-4 cursor-pointer transition-all duration-200 ease-in-out ${recipe.favorites ? 'text-red-500' : 'text-gray-400'}`}
+                    className={`w-6 h-6 mb-4 cursor-pointer transition-all duration-200 ease-in-out ${isLiked ? 'text-red-500' : 'text-gray-400'}`}
                     fill="currentColor"
                     viewBox="0 0 24 24">
                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
