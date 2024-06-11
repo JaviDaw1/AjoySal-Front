@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Dialog, Transition } from '@headlessui/react';
-import AuthService from '../services/AuthService';
-import logoImage from '../images/logo.jpg';
 import { FaUserCircle, FaUser, FaUpload, FaHeart } from 'react-icons/fa';
+import logoImage from '../images/logo.jpg';
 import Loading from '../components/Loading';
 import Divider from './Divider';
+import AuthService from '../services/AuthService';
 
 const authService = new AuthService();
 
@@ -14,7 +14,7 @@ const links = [
   { name: 'Recetas', href: '/recipeclient' },
   { name: 'Subir Receta', href: '/postrecipe' },
   { name: 'Conócenos', href: '/aboutus' },
-  { name: 'Contacto', href: '/contact' },
+  { name: 'Contacto', href: '' },
 ];
 
 function Header() {
@@ -24,6 +24,7 @@ function Header() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
+  const [showContactDialog, setShowContactDialog] = useState(false); // Estado para mostrar/ocultar el diálogo de contacto
 
   useEffect(() => {
     const fetchData = async () => {
@@ -73,9 +74,13 @@ function Header() {
     }
   };
 
+  const toggleContactDialog = () => {
+    setShowContactDialog(!showContactDialog); // Cambia el estado para mostrar/ocultar el diálogo de contacto
+  };
+
   return (
     <header className="bg-yellow-100">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
             <img className="h-20 w-20" src={logoImage} alt="AjoySal Logo" />
@@ -112,6 +117,14 @@ function Header() {
               >
                 {link.name}
               </button>
+            ) : link.name === 'Contacto' ? (
+              <button
+                key={link.name}
+                onClick={toggleContactDialog}
+                className="text-base font-semibold leading-6 text-gray-900"
+              >
+                {link.name}
+              </button>
             ) : (
               <Link
                 key={link.name}
@@ -134,13 +147,13 @@ function Header() {
               </button>
               {dropdownOpen && (
                 <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-20 right-0 top-14">
-                  <Link to="/profile" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  <Link to="/profile" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     <FaUser className="mr-2" /> Mi Perfil
                   </Link>
-                  <Link to="/uploadedrecipes" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  <Link to="/uploadedrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     <FaUpload className="mr-2" /> Recetas Subidas
                   </Link>
-                  <Link to="/favoritesrecipes" className="flex flex-grow px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  <Link to="/favoritesrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
                     <FaHeart className="mr-2" /> Recetas Favoritas
                   </Link>
                   <button onClick={() => {
@@ -218,7 +231,7 @@ function Header() {
                     ))}
                     {user && (
                       <div>
-                        <Divider className='my-4'/>
+                        <Divider className='my-4' />
                         <Link
                           to="/profile"
                           className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
@@ -259,6 +272,68 @@ function Header() {
                 </div>
               </div>
             </Dialog.Panel>
+          </Transition.Child>
+        </Dialog>
+      </Transition>
+
+      {/* Diálogo de contacto */}
+      <Transition show={showContactDialog}>
+        <Dialog
+          className="fixed inset-0 z-10 overflow-hidden"
+          onClose={toggleContactDialog}
+        >
+          <Transition.Child
+            enter="ease-in-out duration-500"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in-out duration-500"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
+          </Transition.Child>
+
+          <Transition.Child
+            enter="transform transition ease-in-out duration-500 sm:duration-700"
+            enterFrom="translate-x-full"
+            enterTo="translate-x-0"
+            leave="transform transition ease-in-out duration-500 sm:duration-700"
+            leaveFrom="translate-x-0"
+            leaveTo="translate-x-full"
+          >
+            <div className="absolute inset-y-0 right-0 flex max-w-full pl-10">
+              <Dialog.Panel className="relative w-full max-w-md p-6 bg-white shadow-xl">
+                <div className="absolute top-0 right-0 -mr-8">
+                  <button
+                    type="button"
+                    className="text-gray-300 hover:text-white focus:outline-none"
+                    onClick={toggleContactDialog}
+                  >
+                    <span className="sr-only">Close panel</span>
+                    <svg
+                      className="h-6 w-6"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
+                    </svg>
+                  </button>
+                </div>
+                <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">
+                  Panel de Contacto
+                </Dialog.Title>
+
+
+
+              </Dialog.Panel>
+            </div>
           </Transition.Child>
         </Dialog>
       </Transition>

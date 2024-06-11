@@ -5,7 +5,6 @@ import PostRecipe from './pages/PostRecipe';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
 import HomePage from './pages/HomePage';
-import Contact from './pages/Contact';
 import AboutUs from './pages/AboutUs';
 import RecipeDetail from './pages/RecipeDetail';
 import RecipeAdmin from './pages/RecipeAdmin';
@@ -23,7 +22,6 @@ export default function App() {
         {/* Pages */}
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
-        <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error404 />} />
