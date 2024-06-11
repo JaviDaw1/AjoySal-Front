@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -11,6 +11,9 @@ const recipeService = new RecipeService();
 const EditRecipe = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const sourcePage = queryParams.get('sourcePage');
   const [recipe, setRecipe] = useState({
     name: '',
     description: '',
@@ -50,8 +53,19 @@ const EditRecipe = () => {
   };
 
   const handleBack = () => {
-    navigate('/uploadedrecipes');
+    switch (sourcePage) {
+      case 'uploadedrecipes':
+        navigate('/uploadedrecipes');
+        break;
+      case 'recipeadmin':
+        navigate('/recipeadmin');
+        break;
+      default:
+        navigate('/recipeadmin');
+        break;
+    }
   };
+  
 
   return (
     <div className="overflow-x-hidden">

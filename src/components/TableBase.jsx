@@ -1,26 +1,28 @@
-import { Fragment } from 'react'
+import React from 'react';
+import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
+import { Link } from 'react-router-dom'; // Importa Link para la navegación
 
-const initialState = {
-    recipes: [
-        { id: 1, name: 'Front-end Developer', description: 'lindsay.walton@example.com', date: 'Member' },
-        { id: 2, name: 'Front-end Developer', description: 'lindsay.walton@example.com', date: 'Member' },
-        { id: 3, name: 'Front-end Developer', description: 'lindsay.walton@example.com', date: 'Member' },
-    ]
-}
+const TableBase = ({ recipes, onDeleteRecipe }) => {
+    const confirmDelete = (id) => {
+        onDeleteRecipe(id);
+    };
 
-function classNames(...classes) {
-    return classes.filter(Boolean).join(' ')
-}
+    // Ordenar los usuarios por su ID
+    const sortedUsers = [...new Set(recipes.map(recipe => recipe.user.id))].sort((a, b) => a - b);
 
-// eslint-disable-next-line react/prop-types, no-unused-vars
-export default function TableBase({ recipes = initialState.recipes, ...props }) {
+    // Ordenar las recetas para cada usuario
+    const sortedRecipes = sortedUsers.map(userId => ({
+        userId,
+        recipes: recipes.filter(recipe => recipe.user.id === userId).sort((a, b) => a.id - b.id)
+    }));
+
     return (
         <div className="px-4 sm:px-6 lg:px-8">
             <div className="sm:flex sm:items-center">
                 <div className="sm:flex-auto">
-                    <h1 className="text-base font-semibold leading-6 text-gray-900">Users</h1>
+                    <h1 className="text-base font-semibold leading-6 text-gray-900">Recipes</h1>
                     <p className="mt-2 text-sm text-gray-700">
-                        A list of all the users in your account including their name, title, email and role.
+                        A list of all the recipes including their name, description, and date.
                     </p>
                 </div>
             </div>
@@ -30,7 +32,13 @@ export default function TableBase({ recipes = initialState.recipes, ...props }) 
                         <table className="min-w-full">
                             <thead className="bg-white">
                                 <tr>
-                                    <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-3">
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        User ID
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        User Name
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         ID
                                     </th>
                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
@@ -42,37 +50,58 @@ export default function TableBase({ recipes = initialState.recipes, ...props }) 
                                     <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
                                         Date
                                     </th>
-                                    <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-3">
-                                        <span className="sr-only">Edit</span>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Show
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Edit
+                                    </th>
+                                    <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">
+                                        Delete
                                     </th>
                                 </tr>
                             </thead>
                             <tbody className="bg-white">
-                                    <Fragment key={'Hola'}>
-                                        {(recipes || []).map((recipe, idx) => (
-                                            <tr
-                                                key={idx}
-                                                className={classNames(idx === 0 ? 'border-gray-300' : 'border-gray-200', 'border-t')}
-                                            >
-                                                <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">
-                                                    {recipe.id}
-                                                </td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{recipe.name}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{recipe.description}</td>
-                                                <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{recipe.date}</td>
-                                                <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                                    <a href="#" className="text-indigo-600 hover:text-indigo-900">
-                                                        Edit<span className="sr-only">, {recipe.name}</span>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </Fragment>
+                                {/* Mapear y renderizar las recetas para cada usuario */}
+                                {sortedRecipes.map(({ userId, recipes }) => (
+                                    recipes.map((recipe, idx) => (
+                                        <tr
+                                            key={idx}
+                                            className={idx % 2 === 0 ? undefined : 'bg-gray-50'}
+                                        >
+                                            <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{userId}</td>
+                                            <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-3">{recipe.user.username}</td>
+                                            <td className="px-3 py-4 text-sm text-gray-500">{recipe.id}</td>
+                                            <td className="px-3 py-4 text-sm text-gray-500">{recipe.name}</td>
+                                            <td className="px-3 py-4 text-sm text-gray-500">{recipe.description}</td>
+                                            <td className="px-3 py-4 text-sm text-gray-500">{recipe.date}</td>
+                                            <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                                                <Link to={`/recipedetailadmin/${recipe.id}`}>
+                                                    <FaEye className="text-blue-600 hover:text-blue-800 transition-all duration-200 text-lg" />
+                                                </Link>
+                                            </td>
+                                            <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                                                <Link to={{ pathname: `/editrecipe/${recipe.id}`, state: { sourcePage: 'recipeadmin' } }}>
+                                                    <FaEdit className="text-green-600 hover:text-green-800 transition-all duration-200 mr-2 text-lg" />
+                                                </Link>
+                                            </td>
+                                            <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
+                                                <button
+                                                    onClick={() => confirmDelete(recipe.id)}
+                                                >
+                                                    <FaTrash className="text-red-600 hover:text-red-800 transition-all duration-200 mr-2 text-lg" />
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ))}
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-    )
-}
+    );
+};
+
+export default TableBase;

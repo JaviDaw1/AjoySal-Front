@@ -7,6 +7,7 @@ import Signup from './pages/Signup';
 import HomePage from './pages/HomePage';
 import AboutUs from './pages/AboutUs';
 import RecipeDetail from './pages/RecipeDetail';
+import RecipeDetailAdmin from './pages/RecipeDetailAdmin';
 import RecipeAdmin from './pages/RecipeAdmin';
 import RecipeClient from './pages/RecipeClient';
 import Profile from './pages/Profile';
@@ -30,6 +31,7 @@ export default function App() {
         <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/recipeadmin" element={<RecipeAdmin />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
+        <Route path="/recipes/:id" component={<RecipeDetailAdmin />} />
         <Route path="/postrecipe" element={<PostRecipe />} />
 
         {/* User Pages */}
