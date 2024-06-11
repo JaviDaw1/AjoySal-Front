@@ -81,7 +81,7 @@ const TableBase = ({ recipes, onDeleteRecipe }) => {
                                                 </Link>
                                             </td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                                <Link to={{ pathname: `/editrecipe/${recipe.id}`, state: { sourcePage: 'recipeadmin' } }}>
+                                                <Link to={`/editrecipe/${recipe.id}?sourcePage=recipeadmin`}>
                                                     <FaEdit className="text-green-600 hover:text-green-800 transition-all duration-200 mr-2 text-lg" />
                                                 </Link>
                                             </td>

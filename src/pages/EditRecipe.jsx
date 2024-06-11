@@ -61,7 +61,7 @@ const EditRecipe = () => {
         navigate('/recipeadmin');
         break;
       default:
-        navigate('/recipeadmin');
+        navigate('/defaultPage');
         break;
     }
   };
