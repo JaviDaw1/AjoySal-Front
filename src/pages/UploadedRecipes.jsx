@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaPencilAlt, FaTrash, FaCheckCircle } from 'react-icons/fa';
@@ -63,7 +62,7 @@ const UploadedRecipes = () => {
 
   const handleEdit = async (id) => {
     navigate(`/editrecipe/${id}?sourcePage=uploadedrecipes`);
-  };  
+  };
 
   const closeModal = () => {
     setShowModal(false);
@@ -85,7 +84,7 @@ const UploadedRecipes = () => {
             recipes.map((recipe, index) => (
               <div key={index} className="flex flex-col max-w-sm w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6 p-4">
                 <div className="flex flex-col h-full border border-gray-300 rounded-lg overflow-hidden cursor-pointer hover:border-gray-500 hover:bg-gray-100 shadow hover:shadow-md hover:shadow-gray-200 ease-in-out transition-all duration-200">
-                  <Link to={`/recipe/${recipe.id}`} className="flex-grow">
+                  <Link to={`/recipe/${recipe.id}?sourcePage=uploadedrecipes`} className="flex-grow">
                     <img src={recipe.image} alt={recipe.name} className="w-full rounded-none" />
                     <div className="p-4">
                       <h1 className="text-lg font-bold mb-2">{recipe.name}</h1>

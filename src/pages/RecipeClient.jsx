@@ -63,10 +63,10 @@ const RecipeClient = () => {
         const handleResize = () => {
             setIsSmallScreen(window.innerWidth < 768);
         };
-        handleResize(); // Llamamos a la función cuando el componente se monta para establecer el estado inicial
-        window.addEventListener('resize', handleResize); // Agregamos el listener para manejar el cambio de tamaño
+        handleResize();
+        window.addEventListener('resize', handleResize);
         return () => {
-            window.removeEventListener('resize', handleResize); // Limpiamos el listener cuando el componente se desmonta
+            window.removeEventListener('resize', handleResize);
         };
     }, []);
 
@@ -79,7 +79,7 @@ const RecipeClient = () => {
                 navigate('/login', { replace: true, state: { message: 'Tienes que estar logueado para ver los detalles de la receta' } });
             }, 2000);
         } else {
-            navigate(`/recipe/${recipeId}`);
+            navigate(`/recipe/${recipeId}?sourcePage=recipeclient`);
         }
     };
 

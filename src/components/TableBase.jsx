@@ -1,8 +1,10 @@
+// TableBase.jsx
+
 import React from 'react';
 import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
 import { Link } from 'react-router-dom'; // Importa Link para la navegación
 
-const TableBase = ({ recipes, onDeleteRecipe }) => {
+const TableBase = ({ recipes, onDeleteRecipe, onViewRecipe }) => {
     const confirmDelete = (id) => {
         onDeleteRecipe(id);
     };
@@ -76,12 +78,15 @@ const TableBase = ({ recipes, onDeleteRecipe }) => {
                                             <td className="px-3 py-4 text-sm text-gray-500">{recipe.description}</td>
                                             <td className="px-3 py-4 text-sm text-gray-500">{recipe.date}</td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                                <Link to={`/recipedetailadmin/${recipe.id}`}>
-                                                    <FaEye className="text-blue-600 hover:text-blue-800 transition-all duration-200 text-lg" />
+                                                <Link to={`/recipes/${recipe.id}`}>
+                                                    <FaEye
+                                                        className="text-blue-600 hover:text-blue-800 transition-all duration-200 text-lg"
+                                                        onClick={() => onViewRecipe(recipe.id)}
+                                                    />
                                                 </Link>
                                             </td>
                                             <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-3">
-                                                <Link to={`/editrecipe/${recipe.id}?sourcePage=recipeadmin`}>
+                                                <Link to={`/editrecipe/${recipe.id}`}>
                                                     <FaEdit className="text-green-600 hover:text-green-800 transition-all duration-200 mr-2 text-lg" />
                                                 </Link>
                                             </td>

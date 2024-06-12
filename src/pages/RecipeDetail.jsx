@@ -1,12 +1,11 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';
 import AuthService from '../services/AuthService';
-import { FaExclamationCircle } from 'react-icons/fa';
+import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 
@@ -18,11 +17,12 @@ const likesService = new LikesService();
 
 const RecipeDetail = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [recipe, setRecipe] = useState(null);
   const [opinions, setOpinions] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
-  // eslint-disable-next-line no-unused-vars
   const [opinionCount, setOpinionCount] = useState(0);
   const [newOpinionTitle, setNewOpinionTitle] = useState('');
   const [newOpinionContent, setNewOpinionContent] = useState('');
@@ -59,6 +59,24 @@ const RecipeDetail = () => {
     };
     fetchRecipeAndDetails();
   }, [id]);
+
+  const handleBack = () => {
+    const sourcePage = new URLSearchParams(location.search).get('sourcePage');
+    switch (sourcePage) {
+      case 'recipeclient':
+        navigate('/recipeclient');
+        break;
+      case 'uploadedrecipes':
+        navigate('/uploadedrecipes');
+        break;
+      case 'favoritesrecipes':
+        navigate('/favoritesrecipes');
+        break;
+      default:
+        navigate('/defaultPage');
+        break;
+    }
+  };
 
   const handleAddOpinion = async () => {
     try {
@@ -174,7 +192,11 @@ const RecipeDetail = () => {
           <div>
             <div className="flex flex-col md:flex-row mb-6">
               <div>
-                <div className='flex flex-grow  items-center'>
+                <button onClick={handleBack} className="text-gray-500 hover:text-gray-700 flex items-center mb-4">
+                    <FaArrowLeft className="mr-2" />
+                      Volver atrás
+                </button>
+                <div className="flex items-center mb-4">
                   <h1 className="text-4xl font-bold text-gray-800 mb-4">{recipe.name}</h1>
                   <svg
                     onClick={handleToggleFavorite}

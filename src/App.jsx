@@ -31,7 +31,7 @@ export default function App() {
         <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/recipeadmin" element={<RecipeAdmin />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
-        <Route path="/recipes/:id" component={<RecipeDetailAdmin />} />
+        <Route path="/recipes/:id" element={<RecipeDetailAdmin />} />
         <Route path="/postrecipe" element={<PostRecipe />} />
 
         {/* User Pages */}
