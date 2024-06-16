@@ -79,7 +79,7 @@ const RecipeClient = () => {
                 navigate('/login', { replace: true, state: { message: 'Tienes que estar logueado para ver los detalles de la receta' } });
             }, 2000);
         } else {
-            navigate(`/recipe/${recipeId}`);
+            navigate(`/recipe/${recipeId}?sourcePage=recipeclient`);
         }
     };
 
