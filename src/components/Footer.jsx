@@ -48,7 +48,6 @@ const Footer = () => {
           </div>
           <nav className="mt-4 md:mt-0">
             <div className="flex flex-row md:flex-row md:space-y-0 md:space-x-8">
-              {/* Increased width for containers (adjust as needed) */}
               <div className="flex-grow-2 ml-16 p-2">
                 <h3 className="text-lg font-bold mb-4">Explorar</h3>
                 <ul className="space-y-2">
@@ -77,7 +76,7 @@ const Footer = () => {
             </div>
           </nav>
         </div>
-        <Divider className="my-4"/>
+        <Divider className="my-4" />
         <div className="flex flex-col md:flex-row justify-between items-center">
           <p className="text-lg">Síguenos en:</p>
           <div className="flex space-x-4 mt-4 md:mt-0">

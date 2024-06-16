@@ -46,7 +46,17 @@ const EditRecipe = () => {
     e.preventDefault();
     try {
       await recipeService.updateRecipe(id, recipe);
-      navigate('/uploadedrecipes');
+      switch (sourcePage) {
+        case 'uploadedrecipes':
+          navigate('/uploadedrecipes');
+          break;
+        case 'recipeadmin':
+          navigate('/recipeadmin');
+          break;
+        default:
+          navigate('/defaultPage');
+          break;
+      }
     } catch (error) {
       console.error('Error updating recipe:', error);
     }
@@ -65,7 +75,7 @@ const EditRecipe = () => {
         break;
     }
   };
-  
+
 
   return (
     <div className="overflow-x-hidden">

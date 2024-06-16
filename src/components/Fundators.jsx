@@ -5,7 +5,7 @@ const founder = [
   {
     name: 'Alejandro Delgado',
     role: 'CEO AjoySal',
-    image: founder1, 
+    image: founder1,
   },
   {
     name: 'Javier Martínez',
@@ -23,7 +23,7 @@ export default function Fundators() {
           <p className="mt-6 text-lg leading-4 text-gray-600">
             Ubicada entre las mejores páginas webs de recetas.Tienes ganas de probar algo
             <span className="block mt-4">
-            distinto, rico, exótico...Con esta aplicación no tendrás problemas con eso.
+              distinto, rico, exótico...Con esta aplicación no tendrás problemas con eso.
             </span>
           </p>
         </div>

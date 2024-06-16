@@ -20,21 +20,21 @@ export default function App() {
   return (
     <Router>
       <Routes>
-        {/* Pages */}
+        {/* Páginas generales */}
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error404 />} />
 
-        {/* Recipe Pages */}
+        {/* Páginas de recetas */}
         <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/recipeadmin" element={<RecipeAdmin />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
         <Route path="/recipes/:id" element={<RecipeDetailAdmin />} />
         <Route path="/postrecipe" element={<PostRecipe />} />
 
-        {/* User Pages */}
+        {/* Páginas de usuario */}
         <Route path="/profile" element={<Profile />} />
         <Route path="/uploadedrecipes" element={<UploadedRecipes />} />
         <Route path="/editrecipe/:id" element={<EditRecipe />} />

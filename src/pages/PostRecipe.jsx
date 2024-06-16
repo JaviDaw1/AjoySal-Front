@@ -55,9 +55,9 @@ export default function PostRecipe() {
     }
     if (!recipeData.ingredients) {
       errors.ingredients = 'Los ingredientes son requeridos';
-    }if (!recipeData.instructions) {
+    } if (!recipeData.instructions) {
       errors.instructions = 'Las instrucciones son requeridas';
-    }    
+    }
     if (!recipeData.time || isNaN(recipeData.time)) {
       errors.time = 'El tiempo debe ser un número válido';
     }
@@ -227,7 +227,7 @@ export default function PostRecipe() {
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

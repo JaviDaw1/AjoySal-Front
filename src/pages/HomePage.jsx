@@ -16,9 +16,9 @@ export default function HomePage() {
             <h2 className="text-2xl font-bold mb-4">Bienvenido a AjoySal</h2>
             <p>Publica y encuentra las mejores recetas de todo el mundo.</p>
           </div>
-          <Divider/>
+          <Divider />
           <div className="text-center p-4 bg-white shadow-md rounded-md">
-            <Carousel /> {/* Añade el componente Carousel aquí */}
+            <Carousel />
           </div>
         </section>
       </main>

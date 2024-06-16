@@ -24,7 +24,7 @@ function Header() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-  const [showContactDialog, setShowContactDialog] = useState(false); // Estado para mostrar/ocultar el diálogo de contacto
+  const [showContactDialog, setShowContactDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +75,7 @@ function Header() {
   };
 
   const toggleContactDialog = () => {
-    setShowContactDialog(!showContactDialog); // Cambia el estado para mostrar/ocultar el diálogo de contacto
+    setShowContactDialog(!showContactDialog);
   };
 
   return (
@@ -171,8 +171,9 @@ function Header() {
             </Link>
           )}
         </div>
-
       </nav>
+
+      {/* Menú lateral header en pantallas móviles */}
       <Transition show={mobileMenuOpen} as={React.Fragment}>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
           <div className="fixed inset-0 z-10" />
@@ -212,13 +213,14 @@ function Header() {
                           {link.name}
                         </a>
                       ) : link.name === 'Recetas' ? (
-                        <button
+                        <Link
                           key={link.name}
+                          to={'/recipeclient'}
                           onClick={handleRecipesClick}
                           className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           {link.name}
-                        </button>
+                        </Link>
                       ) : (
                         <Link
                           key={link.name}
@@ -292,7 +294,6 @@ function Header() {
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           <Transition.Child
             enter="transform transition ease-in-out duration-500 sm:duration-700"
             enterFrom="translate-x-full"
@@ -329,7 +330,6 @@ function Header() {
                 <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">
                   Panel de Contacto
                 </Dialog.Title>
-
 
 
               </Dialog.Panel>

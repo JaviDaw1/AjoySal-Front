@@ -131,7 +131,7 @@ export default function Login() {
               </button>
             </div>
             <div className="text-center">
-              <p className="text-sm text-gray-500">¿No tienes una cuenta? <button type="button" onClick={handleSignup} className="text-blue-600">Regístrate aquí</button></p>
+              <p className="text-sm text-gray-500">¿No tienes una cuenta? <button type="button" onClick={handleSignup} className="text-blue-600 hover:text-blue-500 transition-all ease-in-out duration-200">Regístrate aquí</button></p>
             </div>
           </form>
           {errorMessage && (

@@ -22,14 +22,14 @@ export default class RecipeService {
 
   async getRecipesByUserId(userId) {
     const response = await fetch(`${this.baseUrl}recipe/user/${userId}`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
     });
     if (!response.ok) {
-      throw new Error('Error fetching recipes');
+      throw new Error("Error fetching recipes");
     }
     return response.json();
   }
@@ -65,9 +65,11 @@ export default class RecipeService {
   countRecipes() {
     const token = authService.getToken();
     const headers = {
-      'Authorization': `Bearer ${token}`,
+      Authorization: `Bearer ${token}`,
     };
-    return axios.get(`${this.baseUrl}recipe/count`, { headers }).then((res) => res.data);
+    return axios
+      .get(`${this.baseUrl}recipe/count`, { headers })
+      .then((res) => res.data);
   }
 
   getRecipesByName(name) {
@@ -75,7 +77,9 @@ export default class RecipeService {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.get(`${this.baseUrl}recipe/name/${name}`, { headers }).then((res) => res.data);
+    return axios
+      .get(`${this.baseUrl}recipe/name/${name}`, { headers })
+      .then((res) => res.data);
   }
 
   getRecipesByDifficulty(difficulty) {
@@ -83,7 +87,9 @@ export default class RecipeService {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.get(`${this.baseUrl}recipe/difficulty/${difficulty}`, { headers }).then((res) => res.data);
+    return axios
+      .get(`${this.baseUrl}recipe/difficulty/${difficulty}`, { headers })
+      .then((res) => res.data);
   }
 
   getRecipesByNationality(nationality) {
@@ -91,6 +97,8 @@ export default class RecipeService {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.get(`${this.baseUrl}recipe/nationality/${nationality}`, { headers }).then((res) => res.data);
+    return axios
+      .get(`${this.baseUrl}recipe/nationality/${nationality}`, { headers })
+      .then((res) => res.data);
   }
 }
