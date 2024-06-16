@@ -24,7 +24,7 @@ function Header() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-  const [showContactDialog, setShowContactDialog] = useState(false); // Estado para mostrar/ocultar el diálogo de contacto
+  const [showContactDialog, setShowContactDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,7 +75,7 @@ function Header() {
   };
 
   const toggleContactDialog = () => {
-    setShowContactDialog(!showContactDialog); // Cambia el estado para mostrar/ocultar el diálogo de contacto
+    setShowContactDialog(!showContactDialog);
   };
 
   return (
@@ -212,13 +212,14 @@ function Header() {
                           {link.name}
                         </a>
                       ) : link.name === 'Recetas' ? (
-                        <button
+                        <Link
                           key={link.name}
+                          to={'/recipeclient'}
                           onClick={handleRecipesClick}
                           className="block rounded-lg py-2 pl-6 pr-3 text-base font-semibold leading-7 text-gray-900 transition-all ease-in-out duration-200 hover:bg-gray-50"
                         >
                           {link.name}
-                        </button>
+                        </Link>
                       ) : (
                         <Link
                           key={link.name}

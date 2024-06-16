@@ -188,8 +188,8 @@ export default function Signup() {
               </button>
             </div>
           </form>
-          <div className="mt-4 text-sm text-center">
-            ¿Ya tienes cuenta? <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">Inicia sesión</Link>
+          <div className="mt-4 text-sm text-center text-gray-500">
+            ¿Ya tienes cuenta? <Link to="/login" className="text-blue-600 hover:text-blue-500 transition-all ease-in-out duration-200">Inicia sesión</Link>
           </div>
         </div>
       </div>

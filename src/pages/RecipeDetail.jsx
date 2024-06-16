@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa';import RecipeService from '../services/RecipeService';
+import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa'; import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';
@@ -23,6 +23,7 @@ const RecipeDetail = () => {
   const [opinions, setOpinions] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [opinionCount, setOpinionCount] = useState(0);
   const [newOpinionTitle, setNewOpinionTitle] = useState('');
   const [newOpinionContent, setNewOpinionContent] = useState('');
@@ -187,13 +188,15 @@ const RecipeDetail = () => {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
+      <div className='ml-4 mt-4'>
+        <button onClick={handleBack} className="text-gray-500 hover:text-gray-700 flex items-center transition-all duration-200 ease-in-out">
+          <FaArrowLeft className="mr-2" />
+          Volver atrás
+        </button>
+      </div>
       <div className="flex-grow p-6 w-full mx-auto shadow-lg bg-white rounded-lg">
         {recipe && (
           <div>
-            <button onClick={handleBack} className="text-gray-500 hover:text-gray-700 flex items-center mb-4">
-              <FaArrowLeft className="mr-2" />
-                Volver atrás
-            </button>
             <div className="flex flex-col md:flex-row mb-6">
               <div>
                 <div className='flex flex-grow  items-center'>
