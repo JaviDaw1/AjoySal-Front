@@ -10,19 +10,21 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       <Header />
-      <main className="container mx-auto p-4 flex-grow">
-        <section>
-          <div className="text-center p-4 bg-white shadow-md rounded-md">
-            <h2 className="text-2xl font-bold mb-4">Bienvenido a AjoySal</h2>
-            <p>Publica y encuentra las mejores recetas de todo el mundo.</p>
-          </div>
-          <Divider />
-          <div className="text-center p-4 bg-white shadow-md rounded-md">
-            <Carousel />
-          </div>
-        </section>
-      </main>
-      <Fundators />
+      <div>
+        <main className="container mx-auto p-4 flex-grow">
+          <section>
+            <div className="text-center p-4 bg-white shadow-md rounded-md">
+              <h2 className="text-2xl font-bold mb-4">Bienvenido a AjoySal</h2>
+              <p>Publica y encuentra las mejores recetas de todo el mundo.</p>
+            </div>
+            <Divider />
+            <div className="text-center p-4 bg-white shadow-md rounded-md">
+              <Carousel /> {/* Añade el componente Carousel aquí */}
+            </div>
+          </section>
+        </main>
+        <Fundators />
+      </div>
       <Footer />
     </div>
   );
