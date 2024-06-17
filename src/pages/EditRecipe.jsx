@@ -75,7 +75,7 @@ const EditRecipe = () => {
         break;
     }
   };
-  
+
 
   return (
     <div className="overflow-x-hidden">

@@ -5,7 +5,7 @@ const authService = new AuthService();
 
 export default class OpinionsService {
   baseUrl = "http://localhost:8080/api/";
-  
+
   getAllOpinions() {
     return axios.get(this.baseUrl + "opinions").then((res) => res.data);
   }
@@ -67,5 +67,4 @@ export default class OpinionsService {
       .get(`${this.baseUrl}opinions/count/recipe/${recipeId}`, { headers })
       .then((res) => res.data);
   }
-  
 }

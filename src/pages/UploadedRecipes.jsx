@@ -63,7 +63,7 @@ const UploadedRecipes = () => {
 
   const handleEdit = async (id) => {
     navigate(`/editrecipe/${id}?sourcePage=uploadedrecipes`);
-  };  
+  };
 
   const closeModal = () => {
     setShowModal(false);

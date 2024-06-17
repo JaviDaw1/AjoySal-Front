@@ -100,6 +100,7 @@ export default function PostRecipe() {
       } else if (lines.some((line, index) => !line.startsWith(`${index + 1}. `))) {
         errors.instructions = 'Cada paso debe comenzar con el número correspondiente.';
       }
+
     }
     if (!recipeData.time || isNaN(recipeData.time)) {
       errors.time = 'El tiempo debe ser un número válido';
@@ -271,7 +272,7 @@ export default function PostRecipe() {
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

@@ -171,8 +171,9 @@ function Header() {
             </Link>
           )}
         </div>
-
       </nav>
+
+      {/* Menú lateral header en pantallas móviles */}
       <Transition show={mobileMenuOpen} as={React.Fragment}>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
           <div className="fixed inset-0 z-10" />
@@ -293,7 +294,6 @@ function Header() {
           >
             <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
           </Transition.Child>
-
           <Transition.Child
             enter="transform transition ease-in-out duration-500 sm:duration-700"
             enterFrom="translate-x-full"
@@ -330,7 +330,6 @@ function Header() {
                 <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">
                   Panel de Contacto
                 </Dialog.Title>
-
 
 
               </Dialog.Panel>

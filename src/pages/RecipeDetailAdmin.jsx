@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import RecipeService from '../services/RecipeService';
@@ -53,12 +54,10 @@ const RecipeDetailAdmin = () => {
     return <div>Cargando...</div>;
   }
 
-  // Función para volver a la página de administración de recetas
   const handleBack = () => {
     navigate('/recipeadmin');
   };
 
-  // Función para mostrar el texto de recuento en singular o plural
   const displayCount = (count, singularText, pluralText) => {
     if (count === 1) {
       return `1 ${singularText}`;

@@ -7,7 +7,7 @@ const Modal = ({ show, onClose, onConfirm }) => {
 
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 overflow-auto bg-gray-800 bg-opacity-75">
-      <div className="absolute mx-4"/>
+      <div className="absolute mx-4" />
       <div className="absolute bg-white p-6 rounded-md shadow-md w-full max-w-2xl z-50">
         <h2 className="text-xl font-bold mb-4">Confirmación</h2>
         <p className="mb-4">¿Estás seguro que quieres eliminar esta receta?</p>

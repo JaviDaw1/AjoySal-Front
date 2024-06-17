@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa'; import RecipeService from '../services/RecipeService';
+import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa'; 
+import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';
@@ -199,7 +200,11 @@ const RecipeDetail = () => {
           <div>
             <div className="flex flex-col md:flex-row mb-6">
               <div>
-                <div className='flex flex-grow  items-center'>
+                <button onClick={handleBack} className="text-gray-500 hover:text-gray-700 flex items-center mb-4">
+                    <FaArrowLeft className="mr-2" />
+                      Volver atrás
+                </button>
+                <div className="flex items-center mb-4">
                   <h1 className="text-4xl font-bold text-gray-800 mb-4">{recipe.name}</h1>
                   <svg
                     onClick={handleToggleFavorite}

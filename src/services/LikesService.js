@@ -6,14 +6,18 @@ export default class LikesService {
     this.baseUrl = "http://localhost:8080/api/";
     this.authService = new AuthService();
   }
-  
+
   async likeRecipe(recipeId, userId) {
     const token = this.authService.getToken();
     const headers = {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.post(`${this.baseUrl}likes`, { recipe: { id: recipeId }, user: { id: userId } }, { headers });
+      const response = await axios.post(
+        `${this.baseUrl}likes`,
+        { recipe: { id: recipeId }, user: { id: userId } },
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error liking recipe: " + error.message);
@@ -26,7 +30,10 @@ export default class LikesService {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.delete(`${this.baseUrl}likes/${recipeId}/${userId}`, { headers });
+      const response = await axios.delete(
+        `${this.baseUrl}likes/${recipeId}/${userId}`,
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error unliking recipe: " + error.message);
@@ -39,7 +46,10 @@ export default class LikesService {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get(`${this.baseUrl}likes/isliked/${recipeId}/${userId}`, { headers });
+      const response = await axios.get(
+        `${this.baseUrl}likes/isliked/${recipeId}/${userId}`,
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error checking if recipe is liked: " + error.message);
@@ -52,7 +62,10 @@ export default class LikesService {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get(`${this.baseUrl}likes/liked/user/${userId}`, { headers });
+      const response = await axios.get(
+        `${this.baseUrl}likes/liked/user/${userId}`,
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error checking if recipe is liked: " + error.message);
@@ -65,7 +78,10 @@ export default class LikesService {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get(`${this.baseUrl}likes/count/${recipeId}`, { headers });
+      const response = await axios.get(
+        `${this.baseUrl}likes/count/${recipeId}`,
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error counting likes for recipe: " + error.message);
@@ -78,7 +94,10 @@ export default class LikesService {
       Authorization: `Bearer ${token}`,
     };
     try {
-      const response = await axios.get(`${this.baseUrl}likes/users/${recipeId}`, { headers });
+      const response = await axios.get(
+        `${this.baseUrl}likes/users/${recipeId}`,
+        { headers }
+      );
       return response.data;
     } catch (error) {
       throw new Error("Error getting users who liked recipe: " + error.message);

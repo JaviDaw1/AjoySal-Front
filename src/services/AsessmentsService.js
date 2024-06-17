@@ -5,7 +5,7 @@ const authService = new AuthService();
 
 export default class AsessmentsService {
   baseUrl = "http://localhost:8080/api/";
-  
+
   getAllAsessments() {
     return axios.get(this.baseUrl + "asessments").then((res) => res.data);
   }
@@ -57,7 +57,7 @@ export default class AsessmentsService {
       .get(`${this.baseUrl}asessments/recipe/${recipeId}`, { headers })
       .then((res) => res.data);
   }
-  
+
   countAsessmentsByRecipeId(recipeId) {
     const token = authService.getToken();
     const headers = {
@@ -76,6 +76,5 @@ export default class AsessmentsService {
     return axios
       .get(`${this.baseUrl}asessments/average/recipe/${recipeId}`, { headers })
       .then((res) => res.data);
-}
-  
+  }
 }
