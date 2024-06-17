@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -13,7 +12,7 @@ export default function PostRecipe() {
     name: '',
     description: '',
     ingredients: '',
-    instructions: '',
+    instructions: '1. ',
     time: '',
     servings: '',
     nationality: '',
@@ -31,6 +30,42 @@ export default function PostRecipe() {
       ...recipeData,
       [name]: value,
     });
+  };
+
+  const handleInstructionsChange = (e) => {
+    const { value } = e.target;
+    const lines = value.split('\n');
+
+    if (lines.length > 15) {
+      setErrors({ ...errors, instructions: 'Solo puedes tener hasta 15 pasos.' });
+      return;
+    }
+
+    const newLines = lines.map((line, index) => {
+      if (!line.startsWith(`${index + 1}. `)) {
+        return `${index + 1}. ${line.replace(/^\d+\.\s*/, '')}`;
+      }
+      return line;
+    }).join('\n');
+
+    setRecipeData({
+      ...recipeData,
+      instructions: newLines,
+    });
+
+    if (errors.instructions) {
+      setErrors({ ...errors, instructions: null });
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      const lines = recipeData.instructions.split('\n');
+      if (lines.length >= 15) {
+        e.preventDefault();
+        return;
+      }
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -55,9 +90,17 @@ export default function PostRecipe() {
     }
     if (!recipeData.ingredients) {
       errors.ingredients = 'Los ingredientes son requeridos';
-    }if (!recipeData.instructions) {
+    }
+    if (!recipeData.instructions) {
       errors.instructions = 'Las instrucciones son requeridas';
-    }    
+    } else {
+      const lines = recipeData.instructions.split('\n');
+      if (lines.length > 15) {
+        errors.instructions = 'Solo puedes tener hasta 15 pasos.';
+      } else if (lines.some((line, index) => !line.startsWith(`${index + 1}. `))) {
+        errors.instructions = 'Cada paso debe comenzar con el número correspondiente.';
+      }
+    }
     if (!recipeData.time || isNaN(recipeData.time)) {
       errors.time = 'El tiempo debe ser un número válido';
     }
@@ -155,7 +198,8 @@ export default function PostRecipe() {
                 id="instructions"
                 name="instructions"
                 value={recipeData.instructions}
-                onChange={handleInputChange}
+                onChange={handleInstructionsChange}
+                onKeyDown={handleKeyDown}
                 placeholder="Ejemplo: Paso 1: Lava los ingredientes. Paso 2: Corta las verduras."
                 className={`w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.instructions ? 'border-red-500' : ''}`}
                 required
@@ -231,4 +275,3 @@ export default function PostRecipe() {
     </div>
   );
 }
-
