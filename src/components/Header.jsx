@@ -14,7 +14,7 @@ const links = [
   { name: 'Recetas', href: '/recipeclient' },
   { name: 'Subir Receta', href: '/postrecipe' },
   { name: 'Conócenos', href: '/aboutus' },
-  { name: 'Contacto', href: '' },
+  { name: 'Contacto', href: '/contact' },
 ];
 
 function Header() {
@@ -24,7 +24,6 @@ function Header() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const dropdownRef = useRef(null);
-  const [showContactDialog, setShowContactDialog] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -74,10 +73,6 @@ function Header() {
     }
   };
 
-  const toggleContactDialog = () => {
-    setShowContactDialog(!showContactDialog);
-  };
-
   return (
     <header className="bg-yellow-100">
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
@@ -113,14 +108,6 @@ function Header() {
               <button
                 key={link.name}
                 onClick={handleRecipesClick}
-                className="text-base font-semibold leading-6 text-gray-900"
-              >
-                {link.name}
-              </button>
-            ) : link.name === 'Contacto' ? (
-              <button
-                key={link.name}
-                onClick={toggleContactDialog}
                 className="text-base font-semibold leading-6 text-gray-900"
               >
                 {link.name}
@@ -273,68 +260,6 @@ function Header() {
                 </div>
               </div>
             </Dialog.Panel>
-          </Transition.Child>
-        </Dialog>
-      </Transition>
-
-      {/* Diálogo de contacto */}
-      <Transition show={showContactDialog}>
-        <Dialog
-          className="fixed inset-0 z-10 overflow-hidden"
-          onClose={toggleContactDialog}
-        >
-          <Transition.Child
-            enter="ease-in-out duration-500"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in-out duration-500"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-          </Transition.Child>
-
-          <Transition.Child
-            enter="transform transition ease-in-out duration-500 sm:duration-700"
-            enterFrom="translate-x-full"
-            enterTo="translate-x-0"
-            leave="transform transition ease-in-out duration-500 sm:duration-700"
-            leaveFrom="translate-x-0"
-            leaveTo="translate-x-full"
-          >
-            <div className="absolute inset-y-0 right-0 flex max-w-full pl-10">
-              <Dialog.Panel className="relative w-full max-w-md p-6 bg-white shadow-xl">
-                <div className="absolute top-0 right-0 -mr-8">
-                  <button
-                    type="button"
-                    className="text-gray-300 hover:text-white focus:outline-none"
-                    onClick={toggleContactDialog}
-                  >
-                    <span className="sr-only">Close panel</span>
-                    <svg
-                      className="h-6 w-6"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M6 18L18 6M6 6l12 12"
-                      />
-                    </svg>
-                  </button>
-                </div>
-                <Dialog.Title className="text-lg font-semibold leading-6 text-gray-900">
-                  Panel de Contacto
-                </Dialog.Title>
-
-
-
-              </Dialog.Panel>
-            </div>
           </Transition.Child>
         </Dialog>
       </Transition>

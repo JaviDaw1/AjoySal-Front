@@ -27,6 +27,19 @@ export default function PostRecipe() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+
+    if (name === 'time' || name === 'servings') {
+      if (value < 0) {
+        setErrors({ ...errors, [name]: 'No se permiten números negativos' });
+      }else if(value == 0){
+        setErrors({ ...errors, [name]: 'No puede ser 0' });
+      } else {
+        const newErrors = { ...errors };
+        delete newErrors[name];
+        setErrors(newErrors);
+      }
+    }
+
     setRecipeData({
       ...recipeData,
       [name]: value,
@@ -102,11 +115,11 @@ export default function PostRecipe() {
         errors.instructions = 'Cada paso debe comenzar con el número correspondiente.';
       }
     }
-    if (!recipeData.time || isNaN(recipeData.time)) {
-      errors.time = 'El tiempo debe ser un número válido';
+    if (!recipeData.time || isNaN(recipeData.time) || recipeData.time < 0) {
+      errors.time = 'El tiempo debe ser un número válido y no puede ser negativo';
     }
-    if (!recipeData.servings || isNaN(recipeData.servings)) {
-      errors.servings = 'El número de porciones debe ser un número válido';
+    if (!recipeData.servings || isNaN(recipeData.servings) || recipeData.servings < 0) {
+      errors.servings = 'El número de porciones debe ser un número válido y no puede ser negativo';
     }
     if (!recipeData.nationality) {
       errors.nationality = 'La nacionalidad de la receta es requerida';

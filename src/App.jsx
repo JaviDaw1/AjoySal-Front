@@ -15,6 +15,7 @@ import UploadedRecipes from './pages/UploadedRecipes';
 import EditRecipe from './pages/EditRecipe';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import Error404 from './pages/Error404';
+import Contact from './pages/Contact';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
         {/* Páginas generales */}
         <Route path="/" element={<HomePage />} />
         <Route path="/aboutus" element={<AboutUs />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<Error404 />} />
@@ -31,7 +33,7 @@ export default function App() {
         <Route path="/recipeclient" element={<RecipeClient />} />
         <Route path="/recipeadmin" element={<RecipeAdmin />} />
         <Route path="/recipe/:id" element={<RecipeDetail />} />
-        <Route path="/recipes/:id" element={<RecipeDetailAdmin />} /> {/* Ruta para RecipeDetailAdmin con parámetro id */}
+        <Route path="/recipes/:id" element={<RecipeDetailAdmin />} />
         <Route path="/postrecipe" element={<PostRecipe />} />
 
         {/* Páginas de usuario */}

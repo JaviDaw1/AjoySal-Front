@@ -1,74 +1,113 @@
-// eslint-disable-next-line no-unused-vars
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
-import ContactElement from '../components/ContactElement'
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import AuthService from '../services/AuthService';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
+import Divider from '../components/Divider';
 
-export default function Contact() {
-  const [open, setOpen] = useState(true)
+const authService = new AuthService();
+
+const Contact = () => {
+  // eslint-disable-next-line no-unused-vars
+  const [user, setUser] = useState(null);
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    message: ''
+  });
+  // eslint-disable-next-line no-unused-vars
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const userInfo = authService.getUserInfo();
+      setUser(userInfo);
+      if (userInfo) {
+        setFormData({
+          ...formData,
+          username: userInfo.user.username,
+          email: userInfo.user.email
+        });
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === 'message') {
+      setFormData({
+        ...formData,
+        [name]: value
+      });
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Formulario enviado:', formData);
+  };
 
   return (
-    <div>
-    <Transition.Root show={open} as={Fragment}>
-      <Dialog as="div" className="relative z-10" onClose={setOpen}>
-        <Transition.Child
-          as={Fragment}
-          enter="ease-in-out duration-500"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="ease-in-out duration-500"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" />
-        </Transition.Child>
-
-        <div className="fixed inset-0 overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="pointer-events-none fixed inset-y-0 right-0 flex max-w-full pl-10">
-              <Transition.Child
-                as={Fragment}
-                enter="transform transition ease-in-out duration-500 sm:duration-700"
-                enterFrom="translate-x-full"
-                enterTo="translate-x-0"
-                leave="transform transition ease-in-out duration-500 sm:duration-700"
-                leaveFrom="translate-x-0"
-                leaveTo="translate-x-full"
-              >
-                <Dialog.Panel className="pointer-events-auto relative w-screen max-w-md">
-                  <Transition.Child
-                    as={Fragment}
-                    enter="ease-in-out duration-500"
-                    enterFrom="opacity-0"
-                    enterTo="opacity-100"
-                    leave="ease-in-out duration-500"
-                    leaveFrom="opacity-100"
-                    leaveTo="opacity-0"
-                  >
-                    <div className="absolute left-0 top-0 -ml-8 flex pr-2 pt-4 sm:-ml-10 sm:pr-4">
-                      <button
-                        type="button"
-                        className="relative rounded-md text-gray-300 hover:text-white transition-all ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-white"
-                        onClick={() => setOpen(false)}
-                      >
-                        <span className="absolute -inset-2.5" />
-                        <span className="sr-only">Close panel</span>
-                        <XMarkIcon className="h-6 w-6" aria-hidden="true" />
-                      </button>
-                    </div>
-                  </Transition.Child>
-                  <div className="flex h-full flex-col overflow-y-scroll bg-white py-6 shadow-xl">
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
-                      <ContactElement/>
-                    </div>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
+    <div className="flex flex-col min-h-screen">
+      <Header />
+      <div className="flex flex-1 items-center justify-center py-4">
+        <div className="max-w-2xl w-full p-8 bg-white rounded-lg shadow-lg mx-4">
+          <h2 className="text-2xl font-bold mb-6">Contáctanos</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.username}
+                readOnly
+                onChange={handleChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required
+              />
             </div>
-          </div>
+            <div className="mb-4">
+              <label htmlFor="email" className="block text-sm font-medium text-gray-700">Correo Electrónico</label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={formData.email}
+                readOnly
+                onChange={handleChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <label htmlFor="message" className="block text-sm font-medium text-gray-700">Mensaje</label>
+              <textarea
+                id="message"
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                className="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                rows="4"
+                required
+              ></textarea>
+            </div>
+            <Divider />
+            <div className="mb-4">
+              <button
+                type="submit"
+                className="w-full bg-blue-600 text-white p-2 rounded-md shadow-sm transition-all duration-200 ease-in-out hover:bg-blue-500"
+              >
+                Enviar
+              </button>
+            </div>
+          </form>
         </div>
-      </Dialog>
-    </Transition.Root>
+      </div>
+      <Footer />
     </div>
-  )
-}
+  );
+};
+
+export default Contact;
