@@ -1,7 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa'; import RecipeService from '../services/RecipeService';
+import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa';
+ import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';

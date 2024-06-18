@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Header from '../components/Header';
@@ -127,86 +128,25 @@ export default function PostRecipe() {
   return (
     <div className="min-h-screen bg-gray-100">
       <Header />
-      <div className="container mx-auto py-8 px-4 sm:px-6 lg:px-8">
-        <div className="bg-white shadow-lg rounded-lg p-6 sm:p-8">
-          <h1 className="text-3xl font-semibold mb-8 text-center text-gray-900">Subir Receta</h1>
+      <div className="container mx-auto py-6 px-4 sm:px-6 lg:px-8">
+        <div className="bg-white shadow-lg rounded-lg p-3 sm:p-8">
+          <h1 className="text-3xl font-semibold mb-6 text-center text-gray-900">Subir Receta</h1>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div>
-                <label htmlFor="name" className="block text-sm font-semibold mb-1 text-gray-700">Nombre de la receta</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={recipeData.name}
-                  onChange={handleInputChange}
-                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.name ? 'border-red-500' : ''}`}
-                  placeholder="Ejemplo: Ensalada César"
-                  required
-                />
-                {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
-              </div>
-              <div>
-                <label htmlFor="nationality" className="block text-sm font-semibold mb-1 text-gray-700">Nacionalidad de la receta</label>
-                <input
-                  type="text"
-                  id="nationality"
-                  name="nationality"
-                  value={recipeData.nationality}
-                  onChange={handleInputChange}
-                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.nationality ? 'border-red-500' : ''}`}
-                  placeholder="Ejemplo: Italiana"
-                  required
-                />
-                {errors.nationality && <p className="text-sm text-red-500">{errors.nationality}</p>}
-              </div>
-              <div>
-                <label htmlFor="difficulty" className="block text-sm font-semibold mb-1 text-gray-700">Dificultad</label>
-                <select
-                  id="difficulty"
-                  name="difficulty"
-                  value={recipeData.difficulty}
-                  onChange={handleInputChange}
-                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white shadow-sm ${errors.difficulty ? 'border-red-500' : ''}`}
-                  required
-                >
-                  <option value="" disabled>Selecciona la dificultad</option>
-                  <option value="Fácil">Fácil</option>
-                  <option value="Intermedio">Intermedio</option>
-                  <option value="Difícil">Difícil</option>
-                </select>
-                {errors.difficulty && <p className="text-sm text-red-500">{errors.difficulty}</p>}
-              </div>
-              <div>
-                <label htmlFor="image" className="block text-sm font-semibold mb-1 text-gray-700">URL de la Imagen (Ejemplo: https://ejemplo.com/imagen.jpg)</label>
-                <input
-                  type="text"
-                  id="image"
-                  name="image"
-                  value={recipeData.image}
-                  onChange={handleInputChange}
-                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.image ? 'border-red-500' : ''}`}
-                  placeholder="https://ejemplo.com/imagen.jpg"
-                  required
-                />
-                {errors.image && <p className="text-sm text-red-500">{errors.image}</p>}
-              </div>
-            </div>
-            <div>
-              <label htmlFor="instructions" className="block text-sm font-semibold mb-1 text-gray-700">Instrucciones</label>
-              <textarea
-                id="instructions"
-                name="instructions"
-                value={recipeData.instructions}
-                onChange={handleInstructionsChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Ejemplo: Paso 1: Lava los ingredientes. Paso 2: Corta las verduras."
-                className={`w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.instructions ? 'border-red-500' : ''}`}
+            <div className="mb-4">
+              <label htmlFor="name" className="block text-sm font-semibold mb-1 text-gray-700">Nombre de la receta</label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={recipeData.name}
+                onChange={handleInputChange}
+                className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.name ? 'border-red-500' : ''}`}
+                placeholder="Ejemplo: Ensalada César"
                 required
               />
-              {errors.instructions && <p className="text-sm text-red-500">{errors.instructions}</p>}
+              {errors.name && <p className="text-sm text-red-500">{errors.name}</p>}
             </div>
-            <div>
+            <div className="mb-4">
               <label htmlFor="description" className="block text-sm font-semibold mb-1 text-gray-700">Descripción</label>
               <textarea
                 id="description"
@@ -217,7 +157,7 @@ export default function PostRecipe() {
                 placeholder="Ejemplo: Esta es una deliciosa ensalada César perfecta para cualquier ocasión."
               />
             </div>
-            <div>
+            <div className="mb-4">
               <label htmlFor="ingredients" className="block text-sm font-semibold mb-1 text-gray-700">Ingredientes</label>
               <textarea
                 id="ingredients"
@@ -230,7 +170,21 @@ export default function PostRecipe() {
               />
               {errors.ingredients && <p className="text-sm text-red-500">{errors.ingredients}</p>}
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="mb-4">
+              <label htmlFor="instructions" className="block text-sm font-semibold mb-1 text-gray-700">Instrucciones</label>
+              <textarea
+                id="instructions"
+                name="instructions"
+                value={recipeData.instructions}
+                onChange={handleInstructionsChange}
+                onKeyDown={handleKeyDown}
+                placeholder="Ejemplo: 1. Lava los ingredientes. 2. Corta las verduras."
+                className={`w-full h-32 border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.instructions ? 'border-red-500' : ''}`}
+                required
+              />
+              {errors.instructions && <p className="text-sm text-red-500">{errors.instructions}</p>}
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4 ml-1">
               <div>
                 <label htmlFor="time" className="block text-sm font-semibold mb-1 text-gray-700">Tiempo (en minutos)</label>
                 <input
@@ -259,6 +213,51 @@ export default function PostRecipe() {
                 />
                 {errors.servings && <p className="text-sm text-red-500">{errors.servings}</p>}
               </div>
+              <div>
+                <label htmlFor="nationality" className="block text-sm font-semibold mb-1 text-gray-700">Nacionalidad de la receta</label>
+                <input
+                  type="text"
+                  id="nationality"
+                  name="nationality"
+                  value={recipeData.nationality}
+                  onChange={handleInputChange}
+                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.nationality ? 'border-red-500' : ''}`}
+                  placeholder="Ejemplo: Italiana"
+                  required
+                />
+                {errors.nationality && <p className="text-sm text-red-500">{errors.nationality}</p>}
+              </div>
+              <div>
+                <label htmlFor="difficulty" className="block text-sm font-semibold mb-1 text-gray-700">Dificultad</label>
+                <select
+                  id="difficulty"
+                  name="difficulty"
+                  value={recipeData.difficulty}
+                  onChange={handleInputChange}
+                  className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.difficulty ? 'border-red-500' : ''}`}
+                  required
+                >
+                  <option value="">Selecciona la dificultad</option>
+                  <option value="Fácil">Fácil</option>
+                  <option value="Intermedia">Intermedia</option>
+                  <option value="Difícil">Difícil</option>
+                </select>
+                {errors.difficulty && <p className="text-sm text-red-500">{errors.difficulty}</p>}
+              </div>
+            </div>
+            <div className="mb-4">
+              <label htmlFor="image" className="block text-sm font-semibold mb-1 text-gray-700">URL de la Imagen</label>
+              <input
+                type="url"
+                id="image"
+                name="image"
+                value={recipeData.image}
+                onChange={handleInputChange}
+                className={`w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm ${errors.image ? 'border-red-500' : ''}`}
+                placeholder="Ejemplo: https://www.example.com/imagen.jpg"
+                required
+              />
+              {errors.image && <p className="text-sm text-red-500">{errors.image}</p>}
             </div>
             <div className="text-center">
               <button
@@ -271,7 +270,7 @@ export default function PostRecipe() {
           </form>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 }

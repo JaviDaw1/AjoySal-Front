@@ -21,10 +21,10 @@ export default function Fundators() {
         <div className="max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">AjoySal - Fundadores</h2>
           <p className="mt-6 text-lg leading-4 text-gray-600">
-            Ubicada entre las mejores páginas webs de recetas.Tienes ganas de probar algo
-            <span className="block mt-4">
-            distinto, rico, exótico...Con esta aplicación no tendrás problemas con eso.
-            </span>
+            Alejandro Delgado y Javier Martínez creadores de AjoySal.
+            <p className="mt-4">
+            Un lugar para buscar algo distinto, rico, exótico...Aqui no tendras problemas para encontrar el plato que necesites.
+            </p>
           </p>
         </div>
         <ul role="list" className="grid gap-x-4 gap-y-6 sm:grid-cols-2 sm:gap-y-8 xl:col-span-2">
