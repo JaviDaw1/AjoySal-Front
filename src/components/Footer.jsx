@@ -3,7 +3,7 @@ import { React, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTwitter, FaInstagram, FaFacebook, FaGithub } from 'react-icons/fa';
 import logo from '../images/logo.jpg';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Loading from './Loading';
 import Divider from './Divider';
 

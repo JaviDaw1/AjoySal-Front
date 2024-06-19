@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import Pagination from '../components/Pagination';
 import Loading from '../components/Loading';
 import RecipeService from '../services/RecipeService';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Divider from '../components/Divider';
 
 const recipeService = new RecipeService();

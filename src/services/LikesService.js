@@ -1,5 +1,5 @@
 import axios from "axios";
-import AuthService from "./AuthService";
+import AuthService from "./authService";
 
 export default class LikesService {
   constructor() {

@@ -1,4 +1,4 @@
-export default class AuthService {
+export default class authService {
   constructor() {
     this.url = "http://localhost:8080/api/auth";
   }

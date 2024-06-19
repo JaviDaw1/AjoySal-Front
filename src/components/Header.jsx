@@ -5,7 +5,7 @@ import { FaUserCircle, FaUser, FaUpload, FaHeart } from 'react-icons/fa';
 import logoImage from '../images/logo.jpg';
 import Loading from '../components/Loading';
 import Divider from './Divider';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 
 const authService = new AuthService();
 

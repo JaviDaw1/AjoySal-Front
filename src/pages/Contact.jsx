@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Divider from '../components/Divider';

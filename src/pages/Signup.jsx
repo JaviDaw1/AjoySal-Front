@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Divider from '../components/Divider'
 import logoImage from '../images/logo.jpg';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
