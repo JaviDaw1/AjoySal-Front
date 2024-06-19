@@ -6,7 +6,6 @@ function classNames(...classes) {
 }
 
 export default function DarkMode() {
-
     const [enabled, setEnabled] = useState(localStorage.getItem('theme') === 'dark');
 
     const onChange = () => {

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaPencilAlt, FaTrash, FaCheckCircle } from 'react-icons/fa';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import RecipeService from '../services/RecipeService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';

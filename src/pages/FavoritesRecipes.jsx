@@ -6,7 +6,7 @@ import LikesService from '../services/LikesService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Divider from '../components/Divider';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 
 const likesService = new LikesService();
 const authService = new AuthService();

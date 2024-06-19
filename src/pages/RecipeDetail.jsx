@@ -5,7 +5,7 @@ import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 

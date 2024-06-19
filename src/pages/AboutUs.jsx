@@ -2,7 +2,6 @@
 import React from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import mapa from '../images/mapa.png';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaFacebook, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 function AboutUs() {
@@ -46,7 +45,8 @@ function AboutUs() {
                 </div>
               </div>
               <div>
-                <img src={mapa} className="w-full h-auto" alt="Mapa de la ubicación de AjoySal" />
+              <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d6083.750133273202!2d-3.7236987979677525!3d40.32293017665278!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses!2ses!4v1718816739506!5m2!1ses!2ses" 
+                className="w-full" height={600} allowfullscreen="" loading="lazy"></iframe>
               </div>
             </div>
           </div>

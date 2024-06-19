@@ -3,7 +3,7 @@ import { React, useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaTwitter, FaInstagram, FaFacebook, FaGithub } from 'react-icons/fa';
 import logo from '../images/logo.jpg';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 import Loading from './Loading';
 import Divider from './Divider';
 
@@ -42,7 +42,7 @@ const Footer = () => {
           <div className="md:flex items-center">
             <Link to="/" className="flex items-center space-x-1">
               <img src={logo} alt="Logo" className="w-1" />
-              <span className="text-xl font-bold">AjoySal</span>
+              <span className="text-xl ml-4 font-bold">AjoySal</span>
             </Link>
             <p className="mr-10 mt-4 md:mt-0 text-base">Descubre nuevas recetas y comparte las tuyas con la comunidad.</p>
           </div>

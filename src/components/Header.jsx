@@ -5,7 +5,7 @@ import { FaUserCircle, FaUser, FaUpload, FaHeart } from 'react-icons/fa';
 import logoImage from '../images/logo.jpg';
 import Loading from '../components/Loading';
 import Divider from './Divider';
-import AuthService from '../services/AuthService';
+import AuthService from '../services/authService';
 
 const authService = new AuthService();
 
@@ -78,7 +78,7 @@ function Header() {
       <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
         <div className="flex lg:flex-1">
           <Link to="/" className="-m-1.5 p-1.5">
-            <img className="h-20 w-20" src={logoImage} alt="AjoySal Logo" />
+            <img className="h-20 w-20 rounded-full" src={logoImage} alt="AjoySal Logo" />
           </Link>
         </div>
         <div className="flex lg:hidden">
@@ -96,19 +96,19 @@ function Header() {
         <div className="hidden lg:flex lg:gap-x-12">
           {links.map((link) => (
             link.name === 'Subir Receta' ? (
-              <a
+              <Link
                 key={link.name}
-                href={link.href}
+                to={link.href}
                 onClick={handlePostRecipeClick}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900 hover:text-yellow-600 transition-colors duration-300"
               >
                 {link.name}
-              </a>
+              </Link>
             ) : link.name === 'Recetas' ? (
               <button
                 key={link.name}
                 onClick={handleRecipesClick}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900 hover:text-yellow-600 transition-colors duration-300"
               >
                 {link.name}
               </button>
@@ -116,7 +116,7 @@ function Header() {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900 hover:text-yellow-600 transition-colors duration-300"
               >
                 {link.name}
               </Link>
@@ -125,40 +125,39 @@ function Header() {
         </div>
         <div className="hidden lg:flex lg:flex-1 lg:justify-end items-center space-x-4 relative">
           {user ? (
-            <div>
+            <div className="relative">
               <button
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className="-m-1.5 p-1.5 focus:outline-none relative z-10"
               >
-                <FaUserCircle className="text-gray-900 text-3xl mt-2" />
+                <FaUserCircle className="text-gray-900 text-3xl mt-2 hover:text-yellow-600 transition-colors duration-300" />
               </button>
               {dropdownOpen && (
-                <div className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-20 right-0 top-14">
-                  <Link to="/profile" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                <div ref={dropdownRef} className="absolute bg-white mt-2 py-2 w-48 rounded-md shadow-lg z-20 right-0 top-14 border border-gray-200">
+                  <Link to="/profile" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <FaUser className="mr-2" /> Mi Perfil
                   </Link>
-                  <Link to="/uploadedrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  <Link to="/uploadedrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <FaUpload className="mr-2" /> Recetas Subidas
                   </Link>
-                  <Link to="/favoritesrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  <Link to="/favoritesrecipes" className="flex flex-grow items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <FaHeart className="mr-2" /> Recetas Favoritas
                   </Link>
                   <button onClick={() => {
                     handleLogout();
                     setDropdownOpen(false);
-                  }} className="flex flex-grow w-full text-left px-4 py-2 text-sm text-gray-700 transition-all ease-in-out duration-200 hover:bg-gray-100">
+                  }} className="flex flex-grow w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     Cerrar Sesión
                   </button>
                 </div>
               )}
             </div>
           ) : (
-            <Link to="/login" className="text-base font-semibold leading-6 text-gray-900">
+            <Link to="/login" className="text-lg font-semibold leading-6 text-gray-900 hover:text-yellow-600 transition-colors duration-300">
               Inicia Sesión<span aria-hidden="true">&rarr;</span>
             </Link>
           )}
         </div>
-
       </nav>
       <Transition show={mobileMenuOpen} as={React.Fragment}>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>
