@@ -51,8 +51,7 @@ export default function Signup() {
       password
     };
     try {
-      const response = await authService.signup(signupData);
-      console.log(response);
+      await authService.signup(signupData);
       navigate('/login');
     } catch (error) {
       console.error('Error:', error);

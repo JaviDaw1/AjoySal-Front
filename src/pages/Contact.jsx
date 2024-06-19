@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AuthService from '../services/authService';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -18,8 +17,7 @@ const Contact = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [lastSubmit, setLastSubmit] = useState(null);
   const [isMessageDisabled, setIsMessageDisabled] = useState(false);
-  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false); // Estado para deshabilitar el botón de enviar
-  const navigate = useNavigate();
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,14 +29,10 @@ const Contact = () => {
           username: userInfo.user.username,
           email: userInfo.user.email
         });
-
-        // Obtener el último envío específico para este usuario desde localStorage
         const userLastSubmit = localStorage.getItem(`lastSubmit_${userInfo.user.username}_contact`);
         if (userLastSubmit) {
           const lastSubmitDate = new Date(userLastSubmit);
           setLastSubmit(lastSubmitDate);
-
-          // Bloquear el campo de mensaje si el último envío fue hace menos de 2 días
           const now = new Date();
           if ((now - lastSubmitDate) < 2 * 24 * 60 * 60 * 1000) {
             setIsMessageDisabled(true);
@@ -58,12 +52,12 @@ const Contact = () => {
 
       if (timeDifference >= 2 * 24 * 60 * 60 * 1000) {
         setIsMessageDisabled(false);
-        setIsSubmitDisabled(false); // Desbloquear el botón de enviar
+        setIsSubmitDisabled(false);
         setErrorMessage('');
       } else {
         setTimeout(() => {
           setIsMessageDisabled(false);
-          setIsSubmitDisabled(false); // Desbloquear el botón de enviar
+          setIsSubmitDisabled(false);
           setErrorMessage('');
         }, 2 * 24 * 60 * 60 * 1000 - timeDifference);
       }
@@ -81,35 +75,27 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
+    // eslint-disable-next-line no-unused-vars
     const now = new Date();
     if (isMessageDisabled) {
       return;
     }
 
-    console.log('Formulario enviado:', formData);
 
-    // Limpiar el formulario
     setFormData({
       username: user.username,
       email: user.email,
       message: ''
     });
 
-    // Mostrar mensaje de confirmación
     setShowConfirmation(true);
     setTimeout(() => setShowConfirmation(false), 5000);
-
-    // Bloquear el campo de mensaje y mostrar mensaje de error
     setIsMessageDisabled(true);
-    setIsSubmitDisabled(true); // Bloquear el botón de enviar
+    setIsSubmitDisabled(true);
     setErrorMessage('No envies más de 5 mensajes en la semana o su cuenta será restringida');
-
-    // Actualizar la fecha del último envío específico para este usuario en localStorage
     const newLastSubmit = new Date();
     setLastSubmit(newLastSubmit);
     localStorage.setItem(`lastSubmit_${user.username}_contact`, newLastSubmit.toISOString());
-
-    // Desbloquear el botón de enviar después de 2 días
     setTimeout(() => {
       setIsMessageDisabled(false);
       setIsSubmitDisabled(false);

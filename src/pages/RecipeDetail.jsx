@@ -1,5 +1,6 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { useParams, useLocation, useNavigate } from 'react-router-dom';
 import { FaExclamationCircle, FaArrowLeft, FaEdit, FaTrashAlt } from 'react-icons/fa';
 import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
@@ -136,7 +137,7 @@ const RecipeDetail = () => {
   };
 
   const handleEditOpinion = (opinionId) => {
-    navigate(`/edit-opinion/${opinionId}`);
+    navigate(`/editopinion/${opinionId}`);
   };
 
   const renderStars = (rating) => {
@@ -268,10 +269,14 @@ const RecipeDetail = () => {
                   <p className='text-lg'>No hay reseñas todavía.</p>
                 </div>
               )}
-
               {opinions.length > 0 && (
                 <div className="border border-gray-300 rounded-lg p-4 bg-gray-50">
-                  <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
+                  <div className="flex items-center mb-4">
+                    <h2 className="text-2xl mr-2 font-semibold">Opiniones</h2>
+                    <span className="text-sm text-gray-600">
+                      ({opinionCount} {opinionCount === 1 ? "opinión" : "opiniones"})
+                    </span>
+                  </div>
                   {opinions.map((opinion, index) => (
                     <div key={index} className="mb-4">
                       <div className="flex items-center justify-between">

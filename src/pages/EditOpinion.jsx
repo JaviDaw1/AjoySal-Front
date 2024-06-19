@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa';
@@ -42,7 +43,6 @@ const EditOpinion = () => {
         user: editedUser
       };
       await opinionsService.updateOpinion(opinion.id, updatedOpinion);
-      console.log(id);
       navigate(`/recipe/${opinion.recipe.id}?sourcePage=recipeclient`);
     } catch (error) {
       console.error('Error updating opinion:', error);

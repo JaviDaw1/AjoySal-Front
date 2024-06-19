@@ -54,7 +54,6 @@ export default function Login() {
 
     try {
       const response = await authService.login(email, password);
-      console.log(response);
       localStorage.setItem('user', JSON.stringify({ user: response.user }));
       navigate('/');
     } catch (error) {
