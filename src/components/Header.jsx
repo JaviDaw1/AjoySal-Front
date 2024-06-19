@@ -96,19 +96,19 @@ function Header() {
         <div className="hidden lg:flex lg:gap-x-12">
           {links.map((link) => (
             link.name === 'Subir Receta' ? (
-              <a
+              <Link
                 key={link.name}
                 href={link.href}
                 onClick={handlePostRecipeClick}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900"
               >
                 {link.name}
-              </a>
+              </Link>
             ) : link.name === 'Recetas' ? (
               <button
                 key={link.name}
                 onClick={handleRecipesClick}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900"
               >
                 {link.name}
               </button>
@@ -116,7 +116,7 @@ function Header() {
               <Link
                 key={link.name}
                 to={link.href}
-                className="text-base font-semibold leading-6 text-gray-900"
+                className="text-lg font-semibold leading-6 text-gray-900"
               >
                 {link.name}
               </Link>
@@ -158,7 +158,6 @@ function Header() {
             </Link>
           )}
         </div>
-
       </nav>
       <Transition show={mobileMenuOpen} as={React.Fragment}>
         <Dialog as="div" className="lg:hidden" open={mobileMenuOpen} onClose={() => setMobileMenuOpen(false)}>

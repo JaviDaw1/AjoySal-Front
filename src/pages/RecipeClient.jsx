@@ -192,7 +192,7 @@ const RecipeClient = () => {
                 {!isSmallScreen && (
                     <aside className="w-2/12 py-4 pl-4">
                         <div className="mb-4">
-                            <h2 className="text-lg font-bold mb-2">Buscar por Nombre</h2>
+                            <h2 className="text-lg font-bold mb-2">Buscar por nombre</h2>
                             <div className="relative">
                                 <span className="absolute inset-y-0 left-0 pl-2 flex items-center">
                                     <FaSearch className="h-4 w-8 text-gray-400" />
@@ -209,7 +209,7 @@ const RecipeClient = () => {
                         </div>
                         <Divider className="my-4" />
                         <div className="mb-4">
-                            <h2 className="text-lg font-bold mb-2">Filtrar por Dificultad</h2>
+                            <h2 className="text-lg font-bold mb-2">Filtrar por dificultad</h2>
                             <div>
                                 <label className="text-sm">
                                     <input
@@ -249,7 +249,7 @@ const RecipeClient = () => {
                         </div>
                         <Divider className="my-4" />
                         <div className="mb-4">
-                            <h2 className="text-lg font-bold mb-2">Filtrar por Nacionalidad</h2>
+                            <h2 className="text-lg font-bold mb-2">Filtrar por nacionalidad</h2>
                             <div className="relative">
                                 <span className="absolute inset-y-0 left-0 pl-2 flex items-center">
                                     <FaSearch className="h-4 w-8 text-gray-400" />
