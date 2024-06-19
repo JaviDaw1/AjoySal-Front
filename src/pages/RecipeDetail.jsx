@@ -1,8 +1,7 @@
-// eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useNavigate } from 'react-router-dom';
-import { FaExclamationCircle, FaArrowLeft } from 'react-icons/fa';
- import RecipeService from '../services/RecipeService';
+import { useParams, useLocation, useNavigate, Link } from 'react-router-dom';
+import { FaExclamationCircle, FaArrowLeft, FaEdit, FaTrashAlt } from 'react-icons/fa';
+import RecipeService from '../services/RecipeService';
 import OpinionsService from '../services/OpinionsService';
 import AsessmentsService from '../services/AsessmentsService';
 import LikesService from '../services/LikesService';
@@ -24,7 +23,6 @@ const RecipeDetail = () => {
   const [opinions, setOpinions] = useState([]);
   const [averageRating, setAverageRating] = useState(0);
   const [ratingCount, setRatingCount] = useState(0);
-  // eslint-disable-next-line no-unused-vars
   const [opinionCount, setOpinionCount] = useState(0);
   const [newOpinionTitle, setNewOpinionTitle] = useState('');
   const [newOpinionContent, setNewOpinionContent] = useState('');
@@ -38,7 +36,7 @@ const RecipeDetail = () => {
     const fetchRecipeAndDetails = async () => {
       try {
         const recipeData = await recipeService.findById(id);
-        const userData = authService.getUserInfo(id);
+        const userData = authService.getUserInfo();
         const opinionsData = await opinionsService.getOpinionsByRecipeId(id);
         const averageRatingData = await asessmentsService.getAverageRatingByRecipeId(id);
         const ratingCountData = await asessmentsService.countAsessmentsByRecipeId(id);
@@ -122,6 +120,23 @@ const RecipeDetail = () => {
     } catch (error) {
       console.error('Error toggling favorite:', error);
     }
+  };
+
+  const handleDeleteOpinion = async (opinionId) => {
+    try {
+      const confirmDelete = window.confirm('¿Estás seguro que quieres borrar la opinión?');
+      if (confirmDelete) {
+        await opinionsService.deleteOpinion(opinionId);
+        const updatedOpinions = await opinionsService.getOpinionsByRecipeId(id);
+        setOpinions(updatedOpinions);
+      }
+    } catch (error) {
+      console.error('Error deleting opinion:', error);
+    }
+  };
+
+  const handleEditOpinion = (opinionId) => {
+    navigate(`/edit-opinion/${opinionId}`);
   };
 
   const renderStars = (rating) => {
@@ -259,7 +274,21 @@ const RecipeDetail = () => {
                   <h2 className="mb-4 text-2xl font-semibold">Opiniones</h2>
                   {opinions.map((opinion, index) => (
                     <div key={index} className="mb-4">
-                      <p className="text-lg font-bold">{opinion.title} - {opinion.user.username}</p>
+                      <div className="flex items-center justify-between">
+                        <p className="text-lg font-bold">{opinion.title} - {opinion.user.username}</p>
+                        {user && user.user.id === opinion.user.id && (
+                          <div className="flex items-center space-x-2">
+                            <FaEdit
+                              className="text-green-500 cursor-pointer"
+                              onClick={() => handleEditOpinion(opinion.id)}
+                            />
+                            <FaTrashAlt
+                              className="text-red-500 cursor-pointer"
+                              onClick={() => handleDeleteOpinion(opinion.id)}
+                            />
+                          </div>
+                        )}
+                      </div>
                       <p>{opinion.content}</p>
                     </div>
                   ))}

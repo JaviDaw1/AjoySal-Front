@@ -36,7 +36,7 @@ export default class OpinionsService {
       Authorization: `Bearer ${token}`,
     };
     return axios
-      .put(`${this.baseUrl}opinions/patch/${id}`, opinionData, { headers })
+      .put(`${this.baseUrl}opinions/${id}`, opinionData, { headers })
       .then((res) => res.data);
   }
 
@@ -45,7 +45,7 @@ export default class OpinionsService {
     const headers = {
       Authorization: `Bearer ${token}`,
     };
-    return axios.delete(`${this.baseUrl}/${id}`, { headers });
+    return axios.delete(`${this.baseUrl}opinions/delete/${id}`, { headers });
   }
 
   getOpinionsByRecipeId(recipeId) {

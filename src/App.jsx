@@ -16,6 +16,7 @@ import EditRecipe from './pages/EditRecipe';
 import FavoritesRecipes from './pages/FavoritesRecipes';
 import Error404 from './pages/Error404';
 import Contact from './pages/Contact';
+import EditOpinion from './pages/EditOpinion';
 
 export default function App() {
   return (
@@ -41,6 +42,7 @@ export default function App() {
         <Route path="/uploadedrecipes" element={<UploadedRecipes />} />
         <Route path="/editrecipe/:id" element={<EditRecipe />} />
         <Route path="/favoritesrecipes" element={<FavoritesRecipes />} />
+        <Route path="/editopinion/:id" element={<EditOpinion />} />
       </Routes>
     </Router>
   );
